@@ -1,4 +1,4 @@
-all: waveform_peak_find accGyrMag bubble_sort_norm waveform_feature_xcorr magnitudeXCORR findAbsExtrema findMagnitudeExtrema
+all: waveform_peak_find accGyrMag bubble_sort_norm waveform_feature_xcorr magnitudeXCORR findAbsExtrema findMagnitudeExtrema truncateData
 
 waveform_peak_find: waveform_peak_find.c
 	gcc -o waveform_peak_find waveform_peak_find.c -lm
@@ -20,6 +20,9 @@ findAbsExtrema: findAbsExtrema.c
 
 findMagniudeExtrema: findMagnitudeExtrema.c
 	gcc -o findMagnitudeExtrema findMagnitudeExtrema.c
+
+truncateData: truncateData.c
+	gcc -o truncateData truncateData.c
 
 clean:
 	rm -rf waveform_peak_find *~
