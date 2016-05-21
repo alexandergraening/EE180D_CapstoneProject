@@ -75,7 +75,6 @@ int main(int argc, char **argv)
         ofile_name = argv[2];
 
         /* open the input file */
-        printf(" Input file \'%s\'.\n", ifile_name);
         iFile = fopen(ifile_name, "r");
         if (iFile == NULL) {
                 fprintf(stderr, 

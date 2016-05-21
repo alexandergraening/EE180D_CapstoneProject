@@ -3,6 +3,8 @@
  *	times and amplitudes of the absolute max and min
  *	of both the accelerometer and gyroscope.
  *
+ *	Then, it will find ratios between maxes of the axes
+ *
  *	Then, it writes these these features to output files
  * 
  *	Usage:
@@ -17,13 +19,6 @@
 
 #define BUFF_SIZE 1024
  
-void exchange(float *vec1, float *vec2)
-{
-    	float tmp = *vec1;
-    	*vec1 = *vec2;
-    	*vec2 = tmp;
-}
-
 void norm_vector(float vector[], float *norm, int n)
 {
         int i;
@@ -83,6 +78,7 @@ int main(int argc, char **argv)
 	float * amplitude_vector_gyr_Y;
 	float * amplitude_vector_gyr_Z;
 
+
 	              if (argc != 4) {
                        fprintf(stderr, 
                               "Error - check usage\n"
@@ -133,7 +129,9 @@ int main(int argc, char **argv)
 
 	while ((read = getline(&line, &len, iFile)) != -1) {
                 /* parse the data */
-                rv = sscanf(line, "%f,%f,%f,%f,%f,%f,%f\n", &time_vector[i], &amplitude_vector_acc_X[i], &amplitude_vector_acc_Y[i], &amplitude_vector_acc_Z[i], &amplitude_vector_gyr_X[i], &amplitude_vector_gyr_Y[i], &amplitude_vector_gyr_Z[i]);
+                rv = sscanf(line, "%f,%f,%f,%f,%f,%f,%f\n", &time_vector[i], &amplitude_vector_acc_X[i], 
+		&amplitude_vector_acc_Y[i], &amplitude_vector_acc_Z[i], 
+		&amplitude_vector_gyr_X[i], &amplitude_vector_gyr_Y[i], &amplitude_vector_gyr_Z[i]);
                 i++;
         }
         fclose(iFile);
@@ -153,6 +151,7 @@ int main(int argc, char **argv)
 	max_vector(amplitude_vector_acc_Z, time_vector, &vec_max,&maxTime, vector_length);
 	float minZ = vec_min; float minTimeZ = minTime;
 	float maxZ = vec_max; float maxTimeZ = maxTime;
+
 	/*printf("Accelerometer\n");
 	printf("X Minimum: %f at time: %f	X Maximum: %f at time %f\n", minX, minTimeX, maxX, maxTimeX);
 	printf("Y Minimum: %f at time: %f	Y Maximum: %f at time %f\n", minY, minTimeY, maxY, maxTimeY);
@@ -160,7 +159,8 @@ int main(int argc, char **argv)
 	
 	fprintf(oFileAcc, "time,xMin,time,xMax,time,yMin,time,yMax,time,zMin,time,zMax (Accelerometer)\n");
 	fprintf(oFileAcc, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",minTimeX,minX,maxTimeX,maxX,minTimeY,minY,maxTimeY,maxY,minTimeZ,minZ,maxTimeZ,maxZ);
-	
+	fprintf(oFileAcc, "Time Features (x,y,z): %f,%f,%f\n", minTimeX-maxTimeX, minTimeY-maxTimeY, minTimeZ-maxTimeZ);
+	fprintf(oFileAcc, "Ratio of Maximums (XY, YZ, ZX): %f, %f, %f\n", maxX/maxY, maxY/maxZ, maxZ/maxX);	
 	fclose(oFileAcc);
 
 	oFileGyr = fopen(ofile_name_gyr, "w");
@@ -184,7 +184,8 @@ int main(int argc, char **argv)
 	
 	fprintf(oFileGyr, "time,xMin,time,xMax,time,yMin,time,yMax,time,zMin,time,zMax (Gyroscope)\n");
 	fprintf(oFileGyr, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",minTimeX,minX,maxTimeX,maxX,minTimeY,minY,maxTimeY,maxY,minTimeZ,minZ,maxTimeZ,maxZ);
-	
+	fprintf(oFileGyr, "Time Features (x,y,z): %f,%f,%f\n", minTimeX-maxTimeX, minTimeY-maxTimeY, minTimeZ-maxTimeZ);	
+	fprintf(oFileAcc, "Ratio of Maximums (XY, YZ, ZX): %f, %f, %f\n", maxX/maxY, maxY/maxZ, maxZ/maxX);	
 	fclose(oFileGyr);
 
     	return 0;
