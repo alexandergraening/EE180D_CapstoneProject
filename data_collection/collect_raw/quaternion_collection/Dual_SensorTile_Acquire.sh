@@ -20,8 +20,8 @@ echo Trigger Time: $TRIGGER_TIME
 TRIGGER_TIME2=$((TRIGGER_TIME + 1))
 echo Trigger Time2: $TRIGGER_TIME2
 
-./Acquire_Continuous_Wrist 0.1 $TRIGGER_TIME 1 &
-./Acquire_Continuous_Elbow 0.1 $TRIGGER_TIME2 1 &
+./Acquire_Continuous_Wrist $TRIGGER_TIME &
+./Acquire_Continuous_Elbow $TRIGGER_TIME2 &
 
 sleep_time=$(($TIME_OFFSET+12))
 sleep $sleep_time
@@ -30,10 +30,10 @@ sleep $sleep_time
 #sleep 1
 #./quaternion_data_elbow.sh
 #sleep 1
-cp motion_data_output_1.csv temp1
-cp motion_data_output_2.csv temp2
+cp motion_data_output_q1.csv temp1
+cp motion_data_output_q2.csv temp2
 
-./sample_file_sync temp1 temp2 motion_data_output_1.csv motion_data_output_2.csv 
+./sample_file_sync temp1 temp2 motion_data_output_q1.csv motion_data_output_q2.csv 
 
 rm temp1
 rm temp2

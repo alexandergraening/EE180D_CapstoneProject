@@ -4,7 +4,7 @@
 //
 //
 //  Execute:
-//  ./Acquire_Continuous_Wrist <POSIX_TIME>
+//  ./Acquire_Continuous_Elbow <POSIX_TIME>
 //  Argument 1 for POSIX time stamp for scheduled execution of data acquisition 
 //
 //  Compile:
@@ -38,13 +38,13 @@
 
 const int BUFF_MAX = 256;
 
-#define OUTPUT_FILE "motion_data_output_q1.csv"
+#define OUTPUT_FILE "motion_data_output_q2.csv"
 
 #define SAMPLE_PERIOD 0.050
 
-const char SIGNAL_QI[] = "tempfile_qi_1.txt";
-const char SIGNAL_QJ[] = "tempfile_qj_1.txt";
-const char SIGNAL_QK[] = "tempfile_qk_1.txt";
+const char SIGNAL_QI[] = "tempfile_qi_2.txt";
+const char SIGNAL_QJ[] = "tempfile_qj_2.txt";
+const char SIGNAL_QK[] = "tempfile_qk_2.txt";
 
 int char_to_decimal(char letter){
 
@@ -293,11 +293,11 @@ void rms_comp(const char *signal, unsigned int n_samples, float * t_start, float
 void cleanup(){
 
 	if (remove(SIGNAL_QI) != 0)
-      		printf("Unable to delete tempfile_qi.txt");
+      		printf("Unable to delete tempfile_ax.txt");
  	if (remove(SIGNAL_QJ) != 0)
-    		printf("Unable to delete tempfile_qj.txt");
+    		printf("Unable to delete tempfile_ay.txt");
     	if (remove(SIGNAL_QK) != 0)
-    		printf("Unable to delete tempfile_qk.txt");
+    		printf("Unable to delete tempfile_az.txt");
 
 }
 
@@ -308,7 +308,7 @@ void sig_handler_data_acq_1(int handler_val)
 			clock_gettime(CLOCK_REALTIME, &handler_exec_time);
 			printf("Current POSIX time at start of data acquisition 1 seconds %i\n",handler_exec_time.tv_sec);
 			printf("Current POSIX time at start of data acquisition 1 nanoseconds %i\n",handler_exec_time.tv_nsec);
-			system("sh quaternion_data_wrist.sh");
+			system("sh quaternion_data_elbow.sh");
 }
 
 int main(int argc, char *argv[]) {	
@@ -368,9 +368,9 @@ int main(int argc, char *argv[]) {
 		return 0;
 	}
 
-	system("tail -n 199 sensor_data_stream_1.dat > motion_data_1.dat");
+	system("tail -n 199 sensor_data_stream_2.dat > motion_data_2.dat");
 
-	input_file = "motion_data_1.dat";
+	input_file = "motion_data_2.dat";
 
 	size = BLE_parse(input_file);
 	if(size == 0){
