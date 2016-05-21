@@ -7,17 +7,17 @@ if [ "$#" -ne 2 ]; then
 
 for i in $(seq $1 $2);
 do
-<<<<<<< HEAD
-=======
-
->>>>>>> 6453e5887b4eb9cb216e7afe58615f9f40b3d834
 	./accGyrMag ../raw/mdo_${i}w.csv ../raw/accMag_${i}w.csv ../raw/gyrMag_${i}w.csv
 	./accGyrMag ../raw/mdo_${i}e.csv ../raw/accMag_${i}e.csv ../raw/gyrMag_${i}e.csv
+	./waveform_peak_find ../raw/mdo_${i}w.csv x_peaks_${i}w.csv x_single-axis_${i}w.csv y_peaks_${i}w.csv y_single-axis_${i}w.csv z_peaks_${i}w.csv z_single-axis_${i}w.csv 1000 1000 1000
+	./waveform_peak_find ../raw/mdo_${i}e.csv x_single-axis_${i}e.csv test2.csv y_peaks_${i}e.csv y_single-axis_${i}e.csv z_peaks_${i}e.csv y_single-axis_${i}e.csv 1000 1000 1000
 	./findAbsExtrema ../raw/mdo_${i}w.csv ../features/accMaxMin_${i}w.csv ../features/gyrMaxMin_${i}w.csv
 	./findAbsExtrema ../raw/mdo_${i}e.csv ../features/accMaxMin_${i}e.csv ../features/gyrMaxMin_${i}e.csv
 
-	./findMagnitudeExtrema ../raw/accMag_${i}e.csv ../features/accTimeFeature_${i}.csv
-	./findMagnitudeExtrema ../raw/gyrMag_${i}e.csv ../features/gyrTimeFeature_${i}.csv
+	./findMagnitudeExtrema ../raw/accMag_${i}e.csv ../features/accTimeFeature_${i}e.csv
+	./findMagnitudeExtrema ../raw/gyrMag_${i}e.csv ../features/gyrTimeFeature_${i}e.csv
+	./findMagnitudeExtrema ../raw/accMag_${i}w.csv ../features/accTimeFeature_${i}w.csv
+	./findMagnitudeExtrema ../raw/gyrMag_${i}w.csv ../features/gyrTimeFeature_${i}w.csv
 	
 	./magnitudeXCORR ../raw/accMag_${i}e.csv ../raw/accMag_${i}w.csv ../features/accXCORR_${i}.csv 20
 	./magnitudeXCORR ../raw/gyrMag_${i}e.csv ../raw/gyrMag_${i}w.csv ../features/gyrXCORR_${i}.csv 20
