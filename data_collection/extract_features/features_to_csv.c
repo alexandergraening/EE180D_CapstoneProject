@@ -64,6 +64,9 @@ int main(int argc, char **argv)
 	int vector_length, rv, i;
 	//float xMA,yMA,zMA,xMG,yMG,zMG,xMAt,xmAt,yMAt,ymAt,zMAt,zmAt,xMGt,xmGt,yMGt,ymGt,zMGt,zmGt;	//Raw
 	float xAy,yAz,zAx,xGy,yGz,zGx,dMmxA,dMmyA,dMmzA,dMmxG,dMmyG,dMmzG;	//Computed Features
+	float acc_raw_vector[12];
+	float gyr_raw_vector[12];
+	float aMag,gMag;
 	//char* file_strt_accMm = "../features/accMaxMin_";
 	//char* file_strt_gyrMm = "../features/gyrMaxMin_";
 	//char* file_strt_accTf = "../features/accTimeFeature_";
@@ -132,6 +135,10 @@ int main(int argc, char **argv)
 		//Do stuff here.
         	read = getline(&line, &len, ifp); //discard header of file
         	read = getline(&line, &len, ifp); //Load file data into line.                
+
+		rv = sscanf(line,"%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",&acc_raw_vector[0],&acc_raw_vector[1],&acc_raw_vector[2],&acc_raw_vector[3],&acc_raw_vector[4],&acc_raw_vector[5],&acc_raw_vector[6],&acc_raw_vector[7],&acc_raw_vector[8],&acc_raw_vector[9],&acc_raw_vector[10],&acc_raw_vector[11]);
+		aMag = sqrt(acc_raw_vector[3]*acc_raw_vector[3]+acc_raw_vector[7]*acc_raw_vector[7]+acc_raw_vector[11]*acc_raw_vector[11]);
+
         	read = getline(&line, &len, ifp); //Load file data into line.
         	read = getline(&line, &len, ifp); //Load file data into line.
 
@@ -177,6 +184,8 @@ int main(int argc, char **argv)
 		//Do stuff here.
         	read = getline(&line, &len, ifp); //discard header of file
         	read = getline(&line, &len, ifp); //Load file data into line.                
+		rv = sscanf(line,"%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",&gyr_raw_vector[0],&gyr_raw_vector[1],&gyr_raw_vector[2],&gyr_raw_vector[3],&gyr_raw_vector[4],&gyr_raw_vector[5],&gyr_raw_vector[6],&gyr_raw_vector[7],&gyr_raw_vector[8],&gyr_raw_vector[9],&gyr_raw_vector[10],&gyr_raw_vector[11]);
+		gMag = sqrt(gyr_raw_vector[3]*gyr_raw_vector[3]+gyr_raw_vector[7]*gyr_raw_vector[7]+gyr_raw_vector[11]*gyr_raw_vector[11]);
         	read = getline(&line, &len, ifp); //Load file data into line.
         	read = getline(&line, &len, ifp); //Load file data into line.
 		
@@ -237,8 +246,8 @@ int main(int argc, char **argv)
 
 		//Write to output file here
 */
-		fprintf(ofp,"%d,w,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n\r",k,xAy,yAz,zAx,xGy,yGz,zGx,dMmxA,dMmyA,dMmzA,dMmxG,dMmyG,dMmzG);
-
+		//fprintf(ofp,"%d,w,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n\r",k,xAy,yAz,zAx,xGy,yGz,zGx,dMmxA,dMmyA,dMmzA,dMmxG,dMmyG,dMmzG);
+		fprintf(ofp,"w,%f,%f\n",aMag,gMag);
 
 		//
 		//Then do stuff for Elbow data
@@ -266,6 +275,8 @@ int main(int argc, char **argv)
 		//Do stuff here.
         	read = getline(&line, &len, ifp); //discard header of file
         	read = getline(&line, &len, ifp); //Load file data into line.                
+		rv = sscanf(line,"%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",&acc_raw_vector[0],&acc_raw_vector[1],&acc_raw_vector[2],&acc_raw_vector[3],&acc_raw_vector[4],&acc_raw_vector[5],&acc_raw_vector[6],&acc_raw_vector[7],&acc_raw_vector[8],&acc_raw_vector[9],&acc_raw_vector[10],&acc_raw_vector[11]);
+		aMag = sqrt(acc_raw_vector[3]*acc_raw_vector[3]+acc_raw_vector[7]*acc_raw_vector[7]+acc_raw_vector[11]*acc_raw_vector[11]);
         	read = getline(&line, &len, ifp); //Load file data into line.
         	read = getline(&line, &len, ifp); //Load file data into line.
 		
@@ -308,6 +319,8 @@ int main(int argc, char **argv)
 		//Do stuff here.
         	read = getline(&line, &len, ifp); //discard header of file
         	read = getline(&line, &len, ifp); //Load file data into line.                
+		rv = sscanf(line,"%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",&gyr_raw_vector[0],&gyr_raw_vector[1],&gyr_raw_vector[2],&gyr_raw_vector[3],&gyr_raw_vector[4],&gyr_raw_vector[5],&gyr_raw_vector[6],&gyr_raw_vector[7],&gyr_raw_vector[8],&gyr_raw_vector[9],&gyr_raw_vector[10],&gyr_raw_vector[11]);
+		gMag = sqrt(gyr_raw_vector[3]*gyr_raw_vector[3]+gyr_raw_vector[7]*gyr_raw_vector[7]+gyr_raw_vector[11]*gyr_raw_vector[11]);
         	read = getline(&line, &len, ifp); //Load file data into line.
         	read = getline(&line, &len, ifp); //Load file data into line.
 		
@@ -370,8 +383,8 @@ int main(int argc, char **argv)
 
 		//Print to output file here:
 */
-		fprintf(ofp,"%d,e,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n\r",k,xAy,yAz,zAx,xGy,yGz,zGx,dMmxA,dMmyA,dMmzA,dMmxG,dMmyG,dMmzG);
-
+		//fprintf(ofp,"%d,e,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n\r",k,xAy,yAz,zAx,xGy,yGz,zGx,dMmxA,dMmyA,dMmzA,dMmxG,dMmyG,dMmzG);
+		fprintf(ofp,"e,%f,%f\n",aMag,gMag);
 
 
 
