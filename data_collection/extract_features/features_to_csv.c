@@ -347,24 +347,34 @@ int main(int argc, char **argv)
 
 		ifile_name = argv[9];
 		ifp = fopen(ifile_name,"r");
-		double magnitude[6];
+		double magnitude0;
+		double magnitude1;
+		double magnitude2;
+		double magnitude3;
+		double magnitude4;
+		double magnitude5;
 		if (ifp == NULL)
 		{
 			printf("Failed to open %s\'\n",ifile_name);	
-			magnitude[0] = 0;
-			magnitude[1] = 0;
-			magnitude[2] = 0;
-			magnitude[3] = 0;
-			magnitude[4] = 0;
-			magnitude[5] = 0;
+			magnitude0 = 0;
+			magnitude1 = 0;
+			magnitude2 = 0;
+			magnitude3 = 0;
+			magnitude4 = 0;
+			magnitude5 = 0;
 		}
 		else
 		{
         		read = getline(&line, &len, ifp); //Load file data into line.
-			rv = sscanf(line, "%f,%f,%f,%f,%f,%f",&magnitude[0],&magnitude[1],&magnitude[2],&magnitude[3],&magnitude[4],&magnitude[5]);
+			rv = sscanf(line, "%f,%f,%f,%f,%f,%f",&magnitude0,&magnitude1,&magnitude2,&magnitude3,&magnitude4,&magnitude5);
+			int k;
+			for (k = 0; k < strlen(line);++k)
+			{
+				if (line[k] == '\n')
+					line[k] = '\0';
+			}
+			fprintf(ofp,"%s,",line);
 		}
-
-		fprintf(ofp,"%f,%f,%f,%f,%f,%f,",magnitude[0],magnitude[1],magnitude[2],magnitude[3],magnitude[4],magnitude[5]);
 
 		fclose(ifp);
 
@@ -374,20 +384,19 @@ int main(int argc, char **argv)
 		if (ifp == NULL)
 		{
 			printf("Failed to open %s\'\n",ifile_name);	
-			magnitude[0] = 0;
-			magnitude[1] = 0;
-			magnitude[2] = 0;
-			magnitude[3] = 0;
-			magnitude[4] = 0;
-			magnitude[5] = 0;
+			magnitude0 = 0;
+			magnitude1 = 0;
+			magnitude2 = 0;
+			magnitude3 = 0;
+			magnitude4 = 0;
+			magnitude5 = 0;
 		}
 		else
 		{
         		read = getline(&line, &len, ifp); //Load file data into line.
-			rv = sscanf(line, "%f,%f,%f,%f,%f,%f",&magnitude[0],&magnitude[1],&magnitude[2],&magnitude[3],&magnitude[4],&magnitude[5]);
+			rv = sscanf(line, "%f,%f,%f,%f,%f,%f",&magnitude0,&magnitude1,&magnitude2,&magnitude3,&magnitude4,&magnitude5);
+			fprintf(ofp,"%s",line);
 		}
-
-		fprintf(ofp,"%f,%f,%f,%f,%f,%f\n",magnitude[0],magnitude[1],magnitude[2],magnitude[3],magnitude[4],magnitude[5]);
 
 		fclose(ifp);
 		//dMmxA = 0;dMmyA = 0;dMmzA = 0;dMmxG = 0;dMmyG = 0;dMmzG = 0;
