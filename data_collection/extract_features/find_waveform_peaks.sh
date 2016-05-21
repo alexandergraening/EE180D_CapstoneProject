@@ -5,12 +5,12 @@
 #
 
 
-if [ "$#" -ne 3 ]; then
+if [ "$#" -ne 4 ]; then
 	    echo "Enter Input File Name and X and Y axis peak find threshold"
 	    exit
     fi
 
-./waveform_peak_find $1 waveform_peaks_output_x.csv waveform_gnuplot_x.csv waveform_peaks_output_y.csv waveform_gnuplot_y.csv $2 $3i
+./waveform_peak_find $1 waveform_peaks_output_x.csv waveform_gnuplot_x.csv waveform_peaks_output_y.csv waveform_gnuplot_y.csv waveform_peaks_output_z.csv waveform_gnuplot_z.csv $2 $3 $4
 #
 # Uncomment the below lines to enable plotting capability
 #
