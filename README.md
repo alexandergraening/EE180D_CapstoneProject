@@ -36,3 +36,6 @@ Collect initial data:
 	x number of motions for each step
 		- Shooting from above the head
 		- Raising the ball
+
+
+
