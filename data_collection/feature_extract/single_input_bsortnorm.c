@@ -10,7 +10,7 @@
  *      maximum and minimum values
  *
  *	Usage:
- *	./bubble_sort_norm <INPUT_FILE> <OUTPUT_FILE>
+ *	./bubble_sort_norm <INPUT_FILE> <OUTPUT_FILE_ACC> <OUTPUT_FILE_GYR>
  *
  */
 
@@ -64,8 +64,12 @@ void min_vector(float vector[], float timeVector[], float *min, float* minTime, 
 
 int main(int argc, char **argv)
 {
-	FILE *fp;
-        char *ifile_name, *ofile_name;
+	FILE* iFile;
+	FILE* oFileAcc;
+	FILE* oFileGyr;
+        char* ifile_name;
+	char* ofile_name_acc;
+	char* ofile_name_gyr;
         char *line = NULL;
         size_t len = 0;
         ssize_t read;
@@ -76,11 +80,14 @@ int main(int argc, char **argv)
 	float minTime;
 	float maxTime;
 	float * time_vector;
-	float * amplitude_vector_X;
-	float * amplitude_vector_Y;
-	float * amplitude_vector_Z;
+	float * amplitude_vector_acc_X;
+	float * amplitude_vector_acc_Y;
+	float * amplitude_vector_acc_Z;
+	float * amplitude_vector_gyr_X;
+	float * amplitude_vector_gyr_Y;
+	float * amplitude_vector_gyr_Z;
 
-	              if (argc != 3) {
+	              if (argc != 4) {
                        fprintf(stderr, 
                               "Error - check usage\n"
                               );
@@ -89,12 +96,13 @@ int main(int argc, char **argv)
 
 
 	ifile_name = argv[1];
-        ofile_name = argv[2];
+        ofile_name_acc = argv[2];
+	ofile_name_gyr = argv[3];
 
         /* open the input file */
         printf(" Input file \'%s\'.\n", ifile_name);
-        fp = fopen(ifile_name, "r");
-        if (fp == NULL) {
+        iFile = fopen(ifile_name, "r");
+        if (iFile == NULL) {
                 fprintf(stderr, 
                                 "Failed to read from file \'%s\'.\n", 
                                 ifile_name
@@ -103,15 +111,15 @@ int main(int argc, char **argv)
         }
 
         /* count the number of lines in the file */
-        read = getline(&line, &len, fp); //discard header of file
+        read = getline(&line, &len, iFile); //discard header of file
         N_SAMPLES = 0;
-        while ((read = getline(&line, &len, fp)) != -1) {
+        while ((read = getline(&line, &len, iFile)) != -1) {
                 N_SAMPLES++;
         }
 
         /* go back to the start of the file so that the data can be read */
-        rewind(fp);
-        read = getline(&line, &len, fp); //discard header of file
+        rewind(iFile);
+        read = getline(&line, &len, iFile); //discard header of file
 
 	/* decrement N_SAMPLES to account for header line */
 
@@ -120,33 +128,66 @@ int main(int argc, char **argv)
         i = 0;
 
         time_vector = (float *) malloc(sizeof(float) * N_SAMPLES);
-        amplitude_vector_X  = (float *) malloc(sizeof(float) * N_SAMPLES);
-        amplitude_vector_Y  = (float *) malloc(sizeof(float) * N_SAMPLES);
-        amplitude_vector_Z  = (float *) malloc(sizeof(float) * N_SAMPLES);
-        
-	while ((read = getline(&line, &len, fp)) != -1) {
+        amplitude_vector_acc_X  = (float *) malloc(sizeof(float) * N_SAMPLES);
+        amplitude_vector_acc_Y  = (float *) malloc(sizeof(float) * N_SAMPLES);
+        amplitude_vector_acc_Z  = (float *) malloc(sizeof(float) * N_SAMPLES);
+        amplitude_vector_gyr_X  = (float *) malloc(sizeof(float) * N_SAMPLES);
+	amplitude_vector_gyr_Y  = (float *) malloc(sizeof(float) * N_SAMPLES);
+	amplitude_vector_gyr_Z  = (float *) malloc(sizeof(float) * N_SAMPLES);
+
+	while ((read = getline(&line, &len, iFile)) != -1) {
                 /* parse the data */
-                rv = sscanf(line, "%f,%f,%f,%f\n", &time_vector[i], &amplitude_vector_X[i], &amplitude_vector_Y[i], &amplitude_vector_Z[i]);
+                rv = sscanf(line, "%f,%f,%f,%f,%f,%f,%f\n", &time_vector[i], &amplitude_vector_acc_X[i], &amplitude_vector_acc_Y[i], &amplitude_vector_acc_Z[i], &amplitude_vector_gyr_X[i], &amplitude_vector_gyr_Y[i], &amplitude_vector_gyr_Z[i]);
                 i++;
         }
-        fclose(fp);
+        fclose(iFile);
 	vector_length = N_SAMPLES;
 
-	min_vector(amplitude_vector_X, time_vector, &vec_min,&minTime, vector_length);
-	max_vector(amplitude_vector_X, time_vector, &vec_max,&maxTime, vector_length);
+	oFileAcc = fopen(ofile_name_acc, "w");
+	oFileGyr = fopen(ofile_name_gyr, "w");
+
+	min_vector(amplitude_vector_acc_X, time_vector, &vec_min,&minTime, vector_length);
+	max_vector(amplitude_vector_acc_X, time_vector, &vec_max,&maxTime, vector_length);
 	float minX = vec_min; float minTimeX = minTime;
 	float maxX = vec_max; float maxTimeX = maxTime;
-	min_vector(amplitude_vector_Y, time_vector, &vec_min,&minTime, vector_length);
-	max_vector(amplitude_vector_Y, time_vector, &vec_max,&maxTime, vector_length);
+	min_vector(amplitude_vector_acc_Y, time_vector, &vec_min,&minTime, vector_length);
+	max_vector(amplitude_vector_acc_Y, time_vector, &vec_max,&maxTime, vector_length);
 	float minY = vec_min; float minTimeY = minTime;
 	float maxY = vec_max; float maxTimeY = maxTime;
-	min_vector(amplitude_vector_Z, time_vector, &vec_min,&minTime, vector_length);
-	max_vector(amplitude_vector_Z, time_vector, &vec_max,&maxTime, vector_length);
+	min_vector(amplitude_vector_acc_Z, time_vector, &vec_min,&minTime, vector_length);
+	max_vector(amplitude_vector_acc_Z, time_vector, &vec_max,&maxTime, vector_length);
 	float minZ = vec_min; float minTimeZ = minTime;
 	float maxZ = vec_max; float maxTimeZ = maxTime;
+	printf("Accelerometer\n");
 	printf("X Minimum: %f at time: %f	X Maximum: %f at time %f\n", minX, minTimeX, maxX, maxTimeX);
 	printf("Y Minimum: %f at time: %f	Y Maximum: %f at time %f\n", minY, minTimeY, maxY, maxTimeY);
 	printf("Z Minimum: %f at time: %f	Z Maximum: %f at time %f\n", minZ, minTimeZ, maxZ, maxTimeZ);
+	
+	fprintf(oFileAcc, "time,xMin,time,xMax,time,yMin,time,yMax,time,zMin,time,zMax (Accelerometer)\n");
+	fprintf(oFileAcc, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",minTimeX,minX,maxTimeX,maxX,minTimeY,minY,maxTimeY,maxY,minTimeZ,minZ,maxTimeZ,maxZ);
+	
+	min_vector(amplitude_vector_gyr_X, time_vector, &vec_min,&minTime, vector_length);
+	max_vector(amplitude_vector_gyr_X, time_vector, &vec_max,&maxTime, vector_length);
+	minX = vec_min; minTimeX = minTime;
+	maxX = vec_max; maxTimeX = maxTime;
+	min_vector(amplitude_vector_gyr_Y, time_vector, &vec_min,&minTime, vector_length);
+	max_vector(amplitude_vector_gyr_Y, time_vector, &vec_max,&maxTime, vector_length);
+	minY = vec_min; minTimeY = minTime;
+	maxY = vec_max; maxTimeY = maxTime;
+	min_vector(amplitude_vector_gyr_Z, time_vector, &vec_min,&minTime, vector_length);
+	max_vector(amplitude_vector_gyr_Z, time_vector, &vec_max,&maxTime, vector_length);
+	minZ = vec_min; minTimeZ = minTime;
+	maxZ = vec_max; maxTimeZ = maxTime;
+	printf("Gyroscope\n");
+	printf("X Minimum: %f at time: %f	X Maximum: %f at time %f\n", minX, minTimeX, maxX, maxTimeX);
+	printf("Y Minimum: %f at time: %f	Y Maximum: %f at time %f\n", minY, minTimeY, maxY, maxTimeY);
+	printf("Z Minimum: %f at time: %f	Z Maximum: %f at time %f\n", minZ, minTimeZ, maxZ, maxTimeZ);
+	
+	fprintf(oFileGyr, "time,xMin,time,xMax,time,yMin,time,yMax,time,zMin,time,zMax (Gyroscope)\n");
+	fprintf(oFileGyr, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",minTimeX,minX,maxTimeX,maxX,minTimeY,minY,maxTimeY,maxY,minTimeZ,minZ,maxTimeZ,maxZ);
+
+	fclose(oFileAcc);
+	fclose(oFileGyr);
 
     	return 0;
 }
