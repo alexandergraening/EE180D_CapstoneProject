@@ -12,8 +12,12 @@ bubble_sort_norm: bubble_sort_norm.c
 waveform_feature_xcorr: waveform_feature_xcorr.c
 	gcc -o waveform_feature_xcorr waveform_feature_xcorr.c -lm
 
+magnitudeXCORR: magnitudeXCORR.c
+	gcc -o magnitudeXCORR magnitudeXCORR.c -lm
+
 clean:
 	rm -rf waveform_peak_find *~
 	rm -rf accGyrMag
 	rm -rf bubble_sort_norm
 	rm -rf waveform_feature_xcorr
+	rm -rf magnitudeXCORR
