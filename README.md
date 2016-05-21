@@ -47,5 +47,17 @@ Thursday Week 2:
 		- Cross Correlations? (We will look into this if we need more features. It is almost certain we will need additional features.)
 		- Research Complementary filter to track orientaion? (This might allow us to get away from being reliant on exactly how the sensor is strapped to the hand.)
 
+Week 3: 
+	This past week, we collected a new set of freethrow data for 60 freethrows using a slightly better corner frequency to filter our data. We also wrote a significant portion of the code we will be using to extract features from our data. Here are some of the advancements we made:
+		- automated computation of vector magnitude files that we can graph to show the change in the absolute magnitude of the acceleration and the rotation for each of our motions
+		- computation of absolute minimums and maximums for each axis long with their time of occurrence and writing of this data to a separate file for each motion
+		- Modification of the cross correlation system to allow us to better select which sets of data to use as input.
+		We also did some maintenance to make our system easier to use:
+		- Learned how to write Makefiles so we could start using these to more easily compile our programs
+		- Studied the gnuplot function and adapted this to enable us to plot our data more easily
+		- Added functionality that makes it easy for us to take a large set of data (for example 60 samples) and note where or if our trails were contaminated or produced errors, then easily rerun the data for very specific trials (such as trial 5, 13, and 17) without having to rerun the entire set. This will be especially useful since it will allow us to reuse this code for later in-the-field testing.
 
+
+
+Week 4:
 
