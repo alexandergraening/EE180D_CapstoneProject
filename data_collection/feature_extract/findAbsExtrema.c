@@ -1,16 +1,12 @@
 /*
- *      Perform bubble sort on two vector pairs where
- *      first vector, time_vector value determine
- *      sort order from minimum to maximum value
+ *      This program will open a mdo csv file and find the
+ *	times and amplitudes of the absolute max and min
+ *	of both the accelerometer and gyroscope.
  *
- *	Time values are normalized to difference between 
- *	maximum and minimum values
- *
- *      Amplitude values are normalized to difference between 
- *      maximum and minimum values
- *
+ *	Then, it writes these these features to output files
+ * 
  *	Usage:
- *	./bubble_sort_norm <INPUT_FILE> <OUTPUT_FILE_ACC> <OUTPUT_FILE_GYR>
+ *	./findAbsExtrema <INPUT_FILE> <OUTPUT_FILE_ACC> <OUTPUT_FILE_GYR>
  *
  */
 
