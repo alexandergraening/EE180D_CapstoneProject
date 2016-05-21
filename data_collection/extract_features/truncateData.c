@@ -47,8 +47,8 @@ int main(int argc, char* argv[])
 	int lineCount = 0;
 	
 	// storage for values in Peak File
-	float* timeVec;
-	float* ampVec;
+	float *timeVec;
+	float *ampVec;
 	int rv; 	// count number of variables read with sscanf
 
 	float maxPeak;
@@ -70,14 +70,13 @@ int main(int argc, char* argv[])
 	read = getline(&line, &len, iFile); // disregard header of file
 	timeVec = (float*) malloc(sizeof(float) * lineCount);
 	ampVec = (float*) malloc(sizeof(float) * lineCount);
-	
 	int i;
 	i = 0;
 	while((read = getline(&line, &len, iFile)) != -1) 
 	{
 		rv = sscanf(line, "%f,%f\n", &timeVec[i], &ampVec[i]);
 		if (rv != 2) {
-		//	fprintf(stderr, "truncData: skipping line %d in peaks file; %d variables read in %s\n", i, rv, peaksFileName);
+	//	fprintf(stderr, "truncData: skipping line %d in peaks file; %d variables read in %s\n", i, rv, peaksFileName);
 			continue;
 		}
 		i++;

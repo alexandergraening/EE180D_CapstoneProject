@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-#define NUM_FEATURES 4
+#define NUM_FEATURES 12
 #define NUM_CLASSIFICATIONS 3
 
 int main(int argc, char* argv[])
@@ -14,14 +14,14 @@ int main(int argc, char* argv[])
 	}
 
 	printf("Beginning Training File Compilation... \n");
-	FILE* outFile;		// For writing formatted FANN training file
-	FILE* inFile; 		// For reading features
-	FILE* inFile2;		// For reading freethrow results
+	FILE* outFile;				// For writing formatted FANN training file
+	FILE* inFile; 				// For reading features
+	FILE* inFile2;				// For reading freethrow results
 
 	
 	float features[NUM_FEATURES];
 	
-	char* buffer;		// Store an entire line of result file
+	char* buffer;				// Store an entire line of result file
 	size_t len = 0;	
 	int numFreeThrows;
 	int numFeatures;
