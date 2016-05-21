@@ -134,7 +134,7 @@ int main(int argc, char **argv)
 	int i, idx;
 	int rv;
 	/* Variables for reading file line by line */
-	char *ifile_name, *x_ofile_pt_name, *x_ofile_st_name, *y_ofile_pt_name, *y_ofile_st_name;
+	char *ifile_name, *x_ofile_pt_name, *x_ofile_st_name, *y_ofile_pt_name, *y_ofile_st_name, *z_ofile_pt_name, *z_ofile_st_name;
 	FILE *fp;
 	char *line = NULL;
 	size_t len = 0;
@@ -143,12 +143,12 @@ int main(int argc, char **argv)
 
 	/* Variables for storing the data and storing the return values */
 	float *t, *x, *y, *z; 	// variables for data collected from input file
-	float pk_threshold_x, pk_threshold_y;		// pk-threshold value
+	float pk_threshold_x, pk_threshold_y, pk_threshold_z;		// pk-threshold value
        	/* Variables for peak-trough detection */	
-	float *P_i_x, *P_i_y; 	// indicies of each peak found by peak detection
-	float *T_i_x, *T_i_y; 	// indicies of each trough found by trough detection
-	int n_P_x, n_P_y; 	// number of peaks
-	int n_T_x, n_T_y; 	// number of troughs
+	float *P_i_x, *P_i_y, *P_i_z; 	// indicies of each peak found by peak detection
+	float *T_i_x, *T_i_y, *T_i_z; 	// indicies of each trough found by trough detection
+	int n_P_x, n_P_y, n_P_z; 	// number of peaks
+	int n_T_x, n_T_y, n_T_z; 	// number of troughs
 
 	/*
 	 * Check if the user entered the correct command line arguments
@@ -159,7 +159,7 @@ int main(int argc, char **argv)
 
 
 
-	        if (argc != 8) {
+	        if (argc != 10) {
 	               fprintf(stderr, 
 	                      "Error - check usage\n"
 			      );
@@ -172,9 +172,12 @@ int main(int argc, char **argv)
                 x_ofile_st_name = argv[3];
 		y_ofile_pt_name = argv[4];
 		y_ofile_st_name = argv[5];
+		z_ofile_pt_name = argv[6];
+		z_ofile_st_name = argv[7];
 
-                pk_threshold_x = atof(argv[6]);
-		pk_threshold_y = atof(argv[7]);
+                pk_threshold_x = atof(argv[8]);
+		pk_threshold_y = atof(argv[9]);
+		pk_threshold_z = atof(argv[10]);
 
 
 	/* open the input file */
@@ -254,6 +257,19 @@ int main(int argc, char **argv)
         fprintf(stderr, "find_peaks_and_troughs failed\n");
                 exit(EXIT_FAILURE);
         }
+
+	P_i_z = (float *) malloc(sizeof(float) * N_SAMPLES);
+	T_i_z = (float *) malloc(sizeof(float) * N_SAMPLES);
+	rv = find_peaks_and_troughs(
+			z, 
+			N_SAMPLES, 
+			pk_threshold_z, 
+			P_i_z, T_i_z, 
+			&n_P_z, &n_T_z);
+	if (rv < 0) {
+		fprintf(stderr, "find_peaks_and_troughs failed\n");
+		exit(EXIT_FAILURE);
+	}
 /*
  * 	Write X Axis data
  */
@@ -379,6 +395,71 @@ int main(int argc, char **argv)
 	       );
 	}
 	fclose(fp);
+/*
+ * 	Write Z Axis data
+ *
+ */
+ 
+	printf("Z-Axis peaks data file: \'%s\'.\n", z_ofile_pt_name);
+	fp = fopen(z_ofile_pt_name, "w");
+	if (fp == NULL) {
+		fprintf(stderr,
+				"Failed to write to file \'%s\'.\n", 
+				z_ofile_pt_name
+			       );
+		exit(EXIT_FAILURE);
+		}
+
+	fprintf(fp, "Peak-Trough-Z-%0.1f\n",pk_threshold_z);
+	for (i = 0; i < n_P_z || i < n_T_z; i++) {
+
+	/* 
+	 * Only peak data if there is peak data to write 
+	 */
+	if (i < n_P_z) {
+		idx = (int) P_i_z[i];
+		fprintf(fp, "%lf,  %lf\n",
+				t[idx],
+				y[idx]
+		       );
+		} else {
+		fprintf(fp, ",,,");
+	}
+
+	/* Only trough data if there is trough data to write */
+	if (i < n_T_z) {
+		idx = (int) T_i_z[i];
+		fprintf(fp, "%lf,  %lf \n",
+				t[idx],
+				y[idx]
+		       );
+		} else {
+		fprintf(fp, ",,\n");
+		}
+	}
+	fclose(fp);
+
+	/* open the output file to write the y axis data */
+	printf("Z-Axis plot data file: \'%s\'.\n", z_ofile_st_name);
+	fp = fopen(z_ofile_st_name, "w");
+	if (fp == NULL) {
+			fprintf(stderr, 
+			"Failed to write to file \'%s\'.\n", 
+			z_ofile_st_name
+       			);
+	exit(EXIT_FAILURE);
+	}
+
+
+	fprintf(fp, "Z-Waveform\n");
+	for (i = 0; i < N_SAMPLES; i++) {
+	fprintf(fp, "%lf, %lf\n",
+			t[i],
+			z[i]
+	       );
+	}
+	fclose(fp);
+
 
 
 	return 0;
