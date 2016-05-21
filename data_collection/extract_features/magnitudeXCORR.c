@@ -11,7 +11,7 @@
  * 
  * To find the autocorrelation, use the same file for both inputs to this program.
  * 
- * Typical usage is: ./waveform_feature_xcorr <file_1> <file_2> <output_file> <sampling rate (Hz)>
+ * Typical usage is: ./magnitudeXCORR <file_1> <file_2> <output_file> <sampling rate (Hz)>
  * Example: 	file_1: motion_data_output_circle_pattern.csv
  * 		file_2: motion_data_output_circle_pattern.csv xcorr_out.csv
  * 		output file: xcorr_output.csv
