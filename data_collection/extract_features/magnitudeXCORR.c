@@ -94,7 +94,7 @@ main(int argc, char **argv)
 
 	/* open the input file1 */
 
-	printf(" Input file \'%s\'.\n", ifile1_name);
+	//printf(" Input file \'%s\'.\n", ifile1_name);
 	fp = fopen(ifile1_name, "r");
 	if (fp == NULL) {
 		fprintf(stderr,
@@ -112,7 +112,7 @@ main(int argc, char **argv)
 		N_SAMPLES++;
 	}
 
-	printf("N_SAMPLES %i\n", N_SAMPLES);
+	//printf("N_SAMPLES %i\n", N_SAMPLES);
 
 	/* go back to the start of the file so that the data can be read */
 	rewind(fp);
@@ -149,7 +149,7 @@ main(int argc, char **argv)
 	vector_length1 = N_SAMPLES;
 
 	/* open the input file2 */
-	printf(" Input file \'%s\'.\n", ifile2_name);
+	//printf(" Input file \'%s\'.\n", ifile2_name);
 	fp = fopen(ifile2_name, "r");
 	if (fp == NULL) {
 		fprintf(stderr,
@@ -209,11 +209,11 @@ main(int argc, char **argv)
 
 	crossCorrMags = (float *)malloc(sizeof(float) * 2 * vector_length);
 
-	printf("Number of input samples: %i \n", vector_length);
+	//printf("Number of input samples: %i \n", vector_length);
 
 	xcorr(ampMagVec1, ampMagVec2, crossCorrMags, vector_length);
 
-	printf("Cross correlation output file:  \'%s\'.\n", ofile_name);
+	//printf("Cross correlation output file:  \'%s\'.\n", ofile_name);
 	fp = fopen(ofile_name, "w");
 	if (fp == NULL) {
 		fprintf(stderr,

@@ -14,7 +14,7 @@ if [ "$#" -ne 4 ]; then
 #
 # Uncomment the below lines to enable plotting capability
 #
-gnuplot waveform_gnuplot_script
-sudo cp waveform_plot.png /var/www/html/graphics 
-echo "If no error is reported, view the plot image at http://<Beaglebone IP Address>:8080/graphics/waveform_plot.png"
+#gnuplot waveform_gnuplot_script
+#sudo cp waveform_plot.png /var/www/html/graphics 
+#echo "If no error is reported, view the plot image at http://<Beaglebone IP Address>:8080/graphics/waveform_plot.png"
 

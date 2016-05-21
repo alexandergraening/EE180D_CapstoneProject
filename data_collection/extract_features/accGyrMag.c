@@ -41,8 +41,8 @@ int main(int argc, char* argv[])
 		fscanf(inFile, "%f,%f,%f,%f,%f,%f,%f", &timestamp, &accX, &accY, &accZ, &gyrX, &gyrY, &gyrZ);
 		accMag = sqrt(accX*accX + accY*accY + accZ*accZ);
 		gyrMag = sqrt(gyrX*gyrX + gyrY*gyrY + gyrZ*gyrZ);
-		fprintf(outFileAcc, "%f,%f\n",timestamp, accMag);
-		fprintf(outFileGyr, "%f,%f\n",timestamp, gyrMag);
+		fprintf(outFileAcc, "%f, %f\n",timestamp, accMag);
+		fprintf(outFileGyr, "%f, %f\n",timestamp, gyrMag);
 	}
 
 	fclose(outFileAcc);
