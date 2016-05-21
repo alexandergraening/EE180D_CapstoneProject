@@ -9,8 +9,8 @@ for i in $(seq $1 $2);
 do
 	./accGyrMag ../raw/mdo_${i}w.csv ../raw/accMag_${i}w.csv ../raw/gyrMag_${i}w.csv
 	./accGyrMag ../raw/mdo_${i}e.csv ../raw/accMag_${i}e.csv ../raw/gyrMag_${i}e.csv
-	./waveform_peak_find ../raw/mdo_${i}w.csv x_peaks_${i}w.csv x_single-axis_${i}w.csv y_peaks_${i}w.csv y_single-axis_${i}w.csv z_peaks_${i}w.csv z_single-axis_${i}w.csv 1000 1000 1000
-	./waveform_peak_find ../raw/mdo_${i}e.csv x_single-axis_${i}e.csv test2.csv y_peaks_${i}e.csv y_single-axis_${i}e.csv z_peaks_${i}e.csv y_single-axis_${i}e.csv 1000 1000 1000
+	./waveform_peak_find ../raw/mdo_${i}w.csv ../features/x_peaks_${i}w.csv ../features/x_single-axis_${i}w.csv ../features/y_peaks_${i}w.csv ../features/y_single-axis_${i}w.csv ../features/z_peaks_${i}w.csv ../features/z_single-axis_${i}w.csv 1000 1000 1000
+	./waveform_peak_find ../raw/mdo_${i}e.csv ../features/x_single-axis_${i}e.csv ../features/test2.csv ../features/y_peaks_${i}e.csv ../features/y_single-axis_${i}e.csv ../features/z_peaks_${i}e.csv ../features/y_single-axis_${i}e.csv 1000 1000 1000
 	./findAbsExtrema ../raw/mdo_${i}w.csv ../features/accMaxMin_${i}w.csv ../features/gyrMaxMin_${i}w.csv
 	./findAbsExtrema ../raw/mdo_${i}e.csv ../features/accMaxMin_${i}e.csv ../features/gyrMaxMin_${i}e.csv
 
