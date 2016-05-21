@@ -1,16 +1,15 @@
 // USAGE: ./createTrainFile <FEATURES FILE> <RESULTS FILE> <OUTPUT FILE>
 
-// TODO: Create a header line with number of inputs, outputs, training sets
-
 #include <stdio.h>
 
 #define NUM_FEATURES 4
+#define NUM_CLASSIFICATIONS 3
 
 int main(int argc, char* argv[])
 {
 	if(argc != 4)
 	{
-		printf("Check createTrainFile usage! \n");
+		printf("Check createTrainFile usage: ./createTrainFile <Features File> <Results Encoding File> <Output Fann Train File> \n");
 		return 1;
 	}
 
@@ -31,10 +30,12 @@ int main(int argc, char* argv[])
 	outFile = fopen(argv[3], "w");
 		
 	
-	printf("Enter the number of freethrows to add to the system: ");
+	printf("Enter the number of training lines to add to the system: ");
 	scanf("%d", &numFreeThrows);
-	
-	fprintf(outFile, "%d %d 5\n", numFreeThrows, NUM_FEATURES);	
+
+
+	// Write the header file for FANN training file
+	fprintf(outFile, "%d %d %d\n", numFreeThrows, NUM_FEATURES, NUM_CLASSIFICATIONS);	
 	
 	// Read and Write the Files
 	int j;
@@ -50,7 +51,7 @@ int main(int argc, char* argv[])
 		// Write the features
 		fprintf(outFile, "%s", buffer);
 
-		// Read the result
+		// Read the result encoding
 		if (getline(&buffer, &len, inFile2) == -1) {
 			printf("Result File EOF reached... Exiting");
 			return 1;
