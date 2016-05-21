@@ -21,6 +21,8 @@ echo "In progress..."
 sleep 8
 cp motion_data_output_1.csv ../raw/mdo_${i}w.csv
 cp motion_data_output_2.csv ../raw/mdo_${i}e.csv
+cp sensor_data_stream_1.dat ../raw/sds_${i}w.dat
+cp sensor_data_stream_2.dat ../raw/sds_${i}e.dat
 echo "Done"
 echo ""
 done
