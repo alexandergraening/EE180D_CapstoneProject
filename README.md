@@ -37,5 +37,15 @@ Collect initial data:
 		- Shooting from above the head
 		- Raising the ball
 
+Thursday Week 2:
+	In the past week, we encountered issues with synchronizing two SensorTiles. It appears that as soon as gatttool is used ot connect to one sensor tile and it initializes bluetooth, both SensorTiles are connected. This results in an error when the second gatttool command is called, since one of the sensors is already connected.
+	Selected 0.2 as the ideal argument for filtering input data with AcquireSensorData
+	Modified max sensor readings for the accelerometer.
+	Features we want to explore:
+		- Ratio between y and z gyroscope peak magnitudes (This will likely determine the aim.)
+		- Acceleration vector magnitude (This will likely determine distance) (Maybe maximum, maybe average, maybe integral?)
+		- Cross Correlations? (We will look into this if we need more features. It is almost certain we will need additional features.)
+		- Research Complementary filter to track orientaion? (This might allow us to get away from being reliant on exactly how the sensor is strapped to the hand.)
+
 
 

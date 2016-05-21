@@ -1,4 +1,5 @@
 Characteristic value was written successfully
+<<<<<<< HEAD
 Notification handle = 0x0011 value: 31 e4 f3 ff f1 ff f9 03 12 00 ee ff 07 00 9f ff 92 00 00 01 
 Notification handle = 0x0011 value: 37 e4 f3 ff f2 ff f9 03 13 00 ee ff 07 00 99 ff 8c 00 fa 00 
 Notification handle = 0x0011 value: 3e e4 f3 ff f1 ff fa 03 13 00 ee ff 07 00 a2 ff 8c 00 06 01 
@@ -183,3 +184,38 @@ Notification handle = 0x0011 value: 96 e8 f4 ff f2 ff f8 03 12 00 ee ff 07 00 9e
 Notification handle = 0x0011 value: 9c e8 f3 ff f2 ff f9 03 13 00 ee ff 07 00 a2 ff 8f 00 f6 00 
 Notification handle = 0x0011 value: a3 e8 f3 ff f3 ff fa 03 12 00 ee ff 07 00 a8 ff 90 00 ff 00 
 Notification handle = 0x0011 value: a9 e8 f3 ff f1 ff f7 03 12 00 ee ff 07 00 a4 ff 92 00 00 01 
+=======
+Notification handle = 0x0011 value: 23 e9 00 00 00 00 f7 03 13 00 ee ff 09 00 87 ff 50 00 c9 00 
+Notification handle = 0x0011 value: 2a e9 fe ff 03 00 f6 03 13 00 ee ff 09 00 87 ff 4a 00 ca 00 
+Notification handle = 0x0011 value: 30 e9 f9 ff 02 00 f6 03 13 00 ef ff 08 00 84 ff 45 00 ca 00 
+Notification handle = 0x0011 value: 36 e9 00 00 00 00 f7 03 12 00 ee ff 09 00 84 ff 42 00 ca 00 
+Notification handle = 0x0011 value: 3c e9 fc ff 01 00 f7 03 13 00 ef ff 08 00 89 ff 47 00 d3 00 
+Notification handle = 0x0011 value: 43 e9 fb ff 04 00 f5 03 13 00 ef ff 08 00 87 ff 45 00 cc 00 
+Notification handle = 0x0011 value: 49 e9 ff ff 00 00 f7 03 13 00 ee ff 09 00 86 ff 44 00 cf 00 
+Notification handle = 0x0011 value: 4f e9 fd ff 00 00 f6 03 12 00 ef ff 09 00 8a ff 48 00 c9 00 
+Notification handle = 0x0011 value: 55 e9 fe ff 01 00 f6 03 13 00 ef ff 09 00 8a ff 44 00 c7 00 
+Notification handle = 0x0011 value: 5c e9 fd ff 02 00 f5 03 13 00 ee ff 09 00 81 ff 4e 00 cc 00 
+Notification handle = 0x0011 value: 62 e9 00 00 00 00 f4 03 13 00 ef ff 08 00 8d ff 45 00 ca 00 
+Notification handle = 0x0011 value: 68 e9 fd ff 00 00 f6 03 12 00 ef ff 09 00 81 ff 45 00 ca 00 
+Notification handle = 0x0011 value: 6e e9 fc ff 01 00 f6 03 12 00 ee ff 09 00 89 ff 48 00 cd 00 
+Notification handle = 0x0011 value: 75 e9 fd ff 02 00 f5 03 12 00 ee ff 09 00 93 ff 54 00 c7 00 
+Notification handle = 0x0011 value: 7b e9 00 00 00 00 f7 03 12 00 ee ff 09 00 87 ff 47 00 d0 00 
+Notification handle = 0x0011 value: 81 e9 fb ff 03 00 f6 03 13 00 ef ff 08 00 8a ff 4a 00 cc 00 
+Notification handle = 0x0011 value: 87 e9 ff ff 02 00 f6 03 13 00 ef ff 09 00 87 ff 48 00 d0 00 
+Notification handle = 0x0011 value: 8e e9 fe ff 01 00 f6 03 12 00 ef ff 08 00 87 ff 42 00 cc 00 
+Notification handle = 0x0011 value: 94 e9 00 00 ff ff f5 03 12 00 ef ff 09 00 8f ff 48 00 ca 00 
+Notification handle = 0x0011 value: 9a e9 fd ff 01 00 f4 03 12 00 ef ff 09 00 89 ff 45 00 cc 00 
+Notification handle = 0x0011 value: a0 e9 ff ff 00 00 f4 03 13 00 ef ff 09 00 8a ff 4a 00 cc 00 
+Notification handle = 0x0011 value: a7 e9 fd ff 01 00 f5 03 12 00 ef ff 08 00 87 ff 44 00 c7 00 
+Notification handle = 0x0011 value: ad e9 fc ff 00 00 f6 03 13 00 ef ff 08 00 86 ff 41 00 cc 00 
+Notification handle = 0x0011 value: b3 e9 fe ff 02 00 f7 03 12 00 ef ff 09 00 89 ff 48 00 cc 00 
+Notification handle = 0x0011 value: b9 e9 fd ff 04 00 f6 03 12 00 ee ff 08 00 8c ff 41 00 c9 00 
+Notification handle = 0x0011 value: c0 e9 ff ff 00 00 f6 03 13 00 ee ff 09 00 89 ff 44 00 d0 00 
+Notification handle = 0x0011 value: c6 e9 ff ff 00 00 f6 03 12 00 ee ff 08 00 8a ff 48 00 cd 00 
+Notification handle = 0x0011 value: cc e9 fe ff 01 00 f6 03 13 00 ee ff 09 00 8c ff 47 00 cc 00 
+Notification handle = 0x0011 value: d2 e9 fb ff 02 00 f7 03 13 00 ef ff 08 00 89 ff 3f 00 d2 00 
+Notification handle = 0x0011 value: d9 e9 ff ff 01 00 f5 03 12 00 ef ff 09 00 8a ff 42 00 c7 00 
+Notification handle = 0x0011 value: df e9 fc ff 01 00 f5 03 12 00 ef ff 08 00 8c ff 4a 00 ca 00 
+Notification handle = 0x0011 value: e5 e9 fc ff 01 00 f6 03 13 00 ef ff 08 00 84 ff 41 00 c9 00 
+Notification handle = 0x0011 value: eb e9 fd ff 01 00 f6 03 13 00 ee ff 09 00 8a ff 44 00 cf 00 
+>>>>>>> d2c3b6da272acf0438e943d614f0a88a29f23cc6
