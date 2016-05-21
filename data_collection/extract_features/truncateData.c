@@ -86,6 +86,21 @@ int main(int argc, char* argv[])
 
 	max_vector(ampVec, &maxPeak, lineCount, timeVec, &cutOff); 
 	printf("cutoff time for %s : %f and maxpeak is: %f\n", inputFileName, cutOff, maxPeak);	
+	if (cutOff == -99999) {
+		char* systemCommand = NULL;
+		asprintf(&systemCommand, "cp %s %s", argv[1], argv[3]);
+		system(systemCommand);
+		return 1;
+	}
+
+
+
+
+
+
+
+
+
 	fclose(iFile);
 	free (timeVec);
 	free (ampVec);
