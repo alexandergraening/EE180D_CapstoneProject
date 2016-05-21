@@ -20,13 +20,16 @@ void max_vector(float vector[], float* max, int n, float timeVector[], float* cu
 {
 
 	int i;
-	*max = -999;
+	*max = -99999;
 	
 	for (i = 0; i < n; i++) {
 		if ( *max < abs(vector[i])){
 			*max = vector[i];
 			*cutoffTime = timeVector[i]+1;
 		}
+	}
+	if (*max = -99999) {
+		*cutoffTime = 99999;
 	}
 }
 
