@@ -1,7 +1,7 @@
-###UCLA Winter and Spring Quarters 2018
-###Class: EE180D
-###Professor: William J. Kaiser
-###Authors: Alexander Graening and Jim Xu
+UCLA Winter and Spring Quarters 2018
+Class: EE180D
+Professor: William J. Kaiser
+Authors: Alexander Graening and Jim Xu
 
 Goal: Create a program to recognize and provide feedback on freethrow form that adapts to individual users. This will provide a step forward in adaptive automated coaching in sports and sports medicine. Our ideal system would be used by someone practicing freethrows as follows:
 1. User would wear sensor/sensors strapped to the back of the hand and/or close to the elbow.
