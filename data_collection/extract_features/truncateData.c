@@ -112,7 +112,6 @@ int main(int argc, char* argv[])
 	read = getline(&line, &len, iFile); // disregard header of file
 	read = getline(&line, &len, iFile); // disregard the sometimes blank first line of data
 	float time, amp1, amp2, amp3, amp4, amp5, amp6, amp7, amp8, amp9;
-	i = 0;		
 	while((read = getline(&line, &len, iFile)) != -1) 
 	{
 		rv = sscanf(line, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", &time, &amp1, &amp2, &amp3, &amp4, 
@@ -127,7 +126,6 @@ int main(int argc, char* argv[])
 		if (time < cutOff)
 			fprintf(oFile, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", time, amp1, amp2, amp3, amp4,
 									amp5, amp6, amp7, amp8, amp9);
-		i++;
 	}
 
 	fclose(iFile);
