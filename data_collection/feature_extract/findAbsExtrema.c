@@ -140,7 +140,6 @@ int main(int argc, char **argv)
 	vector_length = N_SAMPLES;
 
 	oFileAcc = fopen(ofile_name_acc, "w");
-	oFileGyr = fopen(ofile_name_gyr, "w");
 
 	min_vector(amplitude_vector_acc_X, time_vector, &vec_min,&minTime, vector_length);
 	max_vector(amplitude_vector_acc_X, time_vector, &vec_max,&maxTime, vector_length);
@@ -162,6 +161,10 @@ int main(int argc, char **argv)
 	fprintf(oFileAcc, "time,xMin,time,xMax,time,yMin,time,yMax,time,zMin,time,zMax (Accelerometer)\n");
 	fprintf(oFileAcc, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",minTimeX,minX,maxTimeX,maxX,minTimeY,minY,maxTimeY,maxY,minTimeZ,minZ,maxTimeZ,maxZ);
 	
+	fclose(oFileAcc);
+
+	oFileGyr = fopen(ofile_name_gyr, "w");
+	
 	min_vector(amplitude_vector_gyr_X, time_vector, &vec_min,&minTime, vector_length);
 	max_vector(amplitude_vector_gyr_X, time_vector, &vec_max,&maxTime, vector_length);
 	minX = vec_min; minTimeX = minTime;
@@ -181,8 +184,7 @@ int main(int argc, char **argv)
 	
 	fprintf(oFileGyr, "time,xMin,time,xMax,time,yMin,time,yMax,time,zMin,time,zMax (Gyroscope)\n");
 	fprintf(oFileGyr, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",minTimeX,minX,maxTimeX,maxX,minTimeY,minY,maxTimeY,maxY,minTimeZ,minZ,maxTimeZ,maxZ);
-
-	fclose(oFileAcc);
+	
 	fclose(oFileGyr);
 
     	return 0;
