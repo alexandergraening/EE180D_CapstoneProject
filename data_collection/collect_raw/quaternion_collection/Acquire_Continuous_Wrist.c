@@ -40,21 +40,13 @@
 
 const int BUFF_MAX = 256;
 
-#define OUTPUT_FILE "motion_data_output_1.csv"
+#define OUTPUT_FILE "motion_data_output_q1.csv"
 
 #define SAMPLE_PERIOD 0.050
 
-const char SIGNAL_AX[] = "tempfile_ax_1.txt";
-const char SIGNAL_AY[] = "tempfile_ay_1.txt";
-const char SIGNAL_AZ[] = "tempfile_az_1.txt";
-
-const char SIGNAL_GX[] = "tempfile_gx_1.txt";
-const char SIGNAL_GY[] = "tempfile_gy_1.txt";
-const char SIGNAL_GZ[] = "tempfile_gz_1.txt";
-
-const char SIGNAL_MX[] = "tempfile_mx_1.txt";
-const char SIGNAL_MY[] = "tempfile_my_1.txt";
-const char SIGNAL_MZ[] = "tempfile_mz_1.txt";
+const char SIGNAL_QI[] = "tempfile_qk_1.txt";
+const char SIGNAL_QJ[] = "tempfile_qj_1.txt";
+const char SIGNAL_QK[] = "tempfile_qk_1.txt";
 
 int char_to_decimal(char letter){
 
@@ -134,17 +126,9 @@ int stream_parser(char raw[BUFF_MAX]){
         ptr++;
     }
 
-    FILE * out_ax = fopen(SIGNAL_AX,"a");
-    FILE * out_ay = fopen(SIGNAL_AY,"a");
-    FILE * out_az = fopen(SIGNAL_AZ,"a");
-
-    FILE * out_gx = fopen(SIGNAL_GX,"a");
-    FILE * out_gy = fopen(SIGNAL_GY,"a");
-    FILE * out_gz = fopen(SIGNAL_GZ,"a");
-
-    FILE * out_mx = fopen(SIGNAL_MX,"a");
-    FILE * out_my = fopen(SIGNAL_MY,"a");
-    FILE * out_mz = fopen(SIGNAL_MZ,"a");
+    FILE * out_qi = fopen(SIGNAL_QI,"a");
+    FILE * out_qj = fopen(SIGNAL_QJ,"a");
+    FILE * out_qk = fopen(SIGNAL_QK,"a");
     
     int y;
 	int index;
@@ -155,31 +139,31 @@ int stream_parser(char raw[BUFF_MAX]){
 				//sensortile.timestamp = hex_to_decimal_time(&data[y]);
 				break;
 			case 1:
-				fprintf(out_ax, "%f\n", (float)(hex_to_decimal_4bit(&data[index]))); 
+				fprintf(out_qi, "%f\n", (float)(hex_to_decimal_4bit(&data[index]))); 
 				break;
 			case 2:
-				fprintf(out_ay, "%f\n", (float)(hex_to_decimal_4bit(&data[index]))); 
+				fprintf(out_qj, "%f\n", (float)(hex_to_decimal_4bit(&data[index]))); 
 				break;
 			case 3:
-				fprintf(out_az, "%f\n", (float)(hex_to_decimal_4bit(&data[index]))); 
+				fprintf(out_qk, "%f\n", (float)(hex_to_decimal_4bit(&data[index]))); 
 				break;
 			case 4:
-				fprintf(out_gx, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
+				fprintf(out_qi, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
 				break;
 			case 5:
-				fprintf(out_gy, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
+				fprintf(out_qj, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
 				break;
 			case 6: 
-				fprintf(out_gz, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
+				fprintf(out_qk, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
 				break;
 			case 7:
-				fprintf(out_mx, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
+				fprintf(out_qi, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
 				break;
 			case 8:
-				fprintf(out_my, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
+				fprintf(out_qj, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
 				break;
 			case 9: 
-				fprintf(out_mz, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
+				fprintf(out_qk, "%f\n", (float)(hex_to_decimal_4bit(&data[index])));
 				break;
 			default:
 				return 0;
@@ -187,17 +171,9 @@ int stream_parser(char raw[BUFF_MAX]){
 	index = index + 4;
     }
 
-    fclose(out_ax);
-    fclose(out_ay);
-    fclose(out_az);
-
-    fclose(out_gx);
-    fclose(out_gy);
-    fclose(out_gz);
-
-    fclose(out_mx);
-    fclose(out_my);
-    fclose(out_mz);
+    fclose(out_qi);
+    fclose(out_qj);
+    fclose(out_qk);
 
     return 1;
 }      
@@ -233,54 +209,30 @@ unsigned int BLE_parse(const char *inFile){
 
 void makeCSV(unsigned int size){
 	FILE *output = fopen(OUTPUT_FILE, "w");
-	fprintf(output, "Accel_x,Accel_y,Accel_z,Gyro_x,Gyro_y,Gyro_z,Magneto_x,Magneto_y,Magneto_z\n");
+	fprintf(output, "qi,qj,qk\n");
 
-	FILE * out_ax = fopen(SIGNAL_AX,"r");
-    	FILE * out_ay = fopen(SIGNAL_AY,"r");
-    	FILE * out_az = fopen(SIGNAL_AZ,"r");
-
-    	FILE * out_gx = fopen(SIGNAL_GX,"r");
-    	FILE * out_gy = fopen(SIGNAL_GY,"r");
-    	FILE * out_gz = fopen(SIGNAL_GZ,"r");
-
-    	FILE * out_mx = fopen(SIGNAL_MX,"r");
-    	FILE * out_my = fopen(SIGNAL_MY,"r");
-    	FILE * out_mz = fopen(SIGNAL_MZ,"r");
-
+	FILE * out_qi = fopen(SIGNAL_QI,"r");
+    	FILE * out_qj = fopen(SIGNAL_QJ,"r");
+    	FILE * out_qk = fopen(SIGNAL_QK,"r");
+	
     	unsigned int i;
-    	float ax,ay,az,gx,gy,gz,mx,my,mz;
+    	float qi,qj,qk;
 	float timestamp = 0;
     	for(i=0; i<size; ++i){
 		
 		timestamp = i*SAMPLE_PERIOD;
 
-		fscanf(out_ax,"%f",&ax);
-		fscanf(out_ay,"%f",&ay);
-		fscanf(out_az,"%f",&az);
+		fscanf(out_qi,"%f",&qi);
+		fscanf(out_qj,"%f",&qj);
+		fscanf(out_qk,"%f",&qk);
 
-		fscanf(out_gx,"%f",&gx);
-		fscanf(out_gy,"%f",&gy);
-		fscanf(out_gz,"%f",&gz);
-
-		fscanf(out_mx,"%f",&mx);
-		fscanf(out_my,"%f",&my);
-		fscanf(out_mz,"%f",&mz);
-
-    		fprintf(output, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",timestamp,ax,ay,az,gx,gy,gz,mx,my,mz);
+    		fprintf(output, "%f,%f,%f,%f\n",timestamp,qi,qj,qk);
     	}
     		fclose(output);
 
-    		fclose(out_ax);
-    		fclose(out_ay);
-    		fclose(out_az);
-
-    		fclose(out_gx);
-    		fclose(out_gy);
-    		fclose(out_gz);
-
-    		fclose(out_mx);
-    		fclose(out_my);
-    		fclose(out_mz);
+    		fclose(out_qi);
+    		fclose(out_qj);
+    		fclose(out_qk);
 	}
 
 void rms_comp(const char *signal, unsigned int n_samples, float * t_start, float * t_stop, float * rms_signal) {
@@ -348,20 +300,7 @@ void cleanup(){
     		printf("Unable to delete tempfile_ay.txt");
     	if (remove(SIGNAL_AZ) != 0)
     		printf("Unable to delete tempfile_az.txt");
-    
-    	if (remove(SIGNAL_GX) != 0)
-      		printf("Unable to delete tempfile_gx.txt");
- 	if (remove(SIGNAL_GY) != 0)
-    		printf("Unable to delete tempfile_gy.txt");
-    	if (remove(SIGNAL_GZ) != 0)
-    		printf("Unable to delete tempfile_gz.txt");
-    
-    	if (remove(SIGNAL_MX) != 0)
-      		printf("Unable to delete tempfile_mx.txt");
- 	if (remove(SIGNAL_MY) != 0)
-    		printf("Unable to delete tempfile_my.txt");
-    	if (remove(SIGNAL_MZ) != 0)
-    		printf("Unable to delete tempfile_mz.txt");
+
 }
 
 
