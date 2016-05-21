@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 
 # Enter Device MAC Address and output file name as required

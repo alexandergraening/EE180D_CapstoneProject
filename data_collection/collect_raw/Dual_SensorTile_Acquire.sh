@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Usage sensor_sample.sh -t <TIME IN SECONDS> 
 #
@@ -22,5 +22,5 @@ TRIGGER_TIME=$(($CURRENT_TIME+$TIME_OFFSET))
 echo Trigger Time: $TRIGGER_TIME
 
 
-./Acquire_LowPass_Continuous_2 0.2 $TRIGGER_TIME 3  &
-./Acquire_LowPass_Continuous_1 0.2 $TRIGGER_TIME 5  &
+./Acquire_LowPass_Continuous_2 0.2 $TRIGGER_TIME 1  &
+./Acquire_LowPass_Continuous_1 0.2 $TRIGGER_TIME 1  &
