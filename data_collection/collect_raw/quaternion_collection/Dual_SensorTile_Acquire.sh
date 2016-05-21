@@ -26,12 +26,17 @@ echo Trigger Time2: $TRIGGER_TIME2
 sleep_time=$(($TIME_OFFSET+12))
 sleep $sleep_time
 
+./Acquire_LowPass_Continuous_1 0.2 1 1
+./Acquire_LowPass_Continuous_2 0.2 1 1
+
 #./quaternion_data_wrist.sh
 #sleep 1
 #./quaternion_data_elbow.sh
 #sleep 1
 cp motion_data_output_q1.csv temp1
 cp motion_data_output_q2.csv temp2
+
+
 
 ./sample_file_sync temp1 temp2 motion_data_output_q1.csv motion_data_output_q2.csv 
 
