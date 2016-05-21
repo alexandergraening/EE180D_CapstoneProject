@@ -29,6 +29,7 @@ void max_vector(float vector[], float* max, int n, float timeVector[], float* cu
 		}
 	}
 }
+
 int main(int argc, char* argv[])
 {
 	if (argc != 4)
@@ -116,10 +117,10 @@ int main(int argc, char* argv[])
 								&amp5, &amp6, &amp7, &amp8, &amp9);
 		
 	//	printf("Line %d: %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", i, time, amp1, amp2, amp3, amp4, amp5, amp6, amp7, amp8, amp9);
-		if (rv != 10) {
-			fprintf(stderr, "truncData: skipping line %d in trunc file\n", i);
-			continue;
-		}
+//		if (rv != 10) {
+//			fprintf(stderr, "truncData: skipping line %d in trunc file\n", i);
+//			//continue;
+//		}
 
 		if (timeVec[i] < cutOff)
 			fprintf(oFile, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", time, amp1, amp2, amp3, amp4,
