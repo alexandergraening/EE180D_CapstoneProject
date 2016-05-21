@@ -12,7 +12,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <math.h>
 
 
 // Find the maximum peak within the freethrow motion and cutoff time for truncation
@@ -23,7 +23,7 @@ void max_vector(float vector[], float* max, int n, float timeVector[], float* cu
 	*max = -999;
 	
 	for (i = 0; i < n; i++) {
-		if ( *max < vector[i]){
+		if ( *max < abs(vector[i])){
 			*max = vector[i];
 			*cutoffTime = timeVector[i]+1;
 		}
@@ -78,7 +78,7 @@ int main(int argc, char* argv[])
 		rv = sscanf(line, "%f,%f\n", &timeVec[i], &ampVec[i]);
 		if (rv != 2) {
 	//	fprintf(stderr, "truncData: skipping line %d in peaks file; %d variables read in %s\n", i, rv, peaksFileName);
-			continue;
+//			continue;
 		}
 		i++;
 	}
@@ -103,6 +103,8 @@ int main(int argc, char* argv[])
 		exit(EXIT_FAILURE);
 	}
 	lineCount = 0;
+	read = getline(&line, &len, iFile); // disregard header of file
+	read = getline(&line, &len, iFile); // disregard the sometimes blank first line of data
 	while((read = getline(&line, &len, iFile)) != -1)
 		lineCount++;
 	rewind(iFile);
@@ -122,7 +124,7 @@ int main(int argc, char* argv[])
 //			//continue;
 //		}
 
-		if (timeVec[i] < cutOff)
+		if (time < cutOff)
 			fprintf(oFile, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", time, amp1, amp2, amp3, amp4,
 									amp5, amp6, amp7, amp8, amp9);
 		i++;
