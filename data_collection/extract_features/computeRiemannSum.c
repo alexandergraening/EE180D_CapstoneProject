@@ -118,8 +118,17 @@ int main(int argc, char* argv[])
 	double gxAve = gxSum/lineCount;
 	double gyAve = gySum/lineCount;
 	double gzAve = gzSum/lineCount;
+	//outVal[] Holds normalized values for FANN training.
+	double outVal[6];
+	outVal[0] = axAve/1000;
+	outVal[1] = ayAve/1000;
+	outVal[2] = azAve/1000;
+	outVal[3] = gxAve/1000;
+	outVal[4] = gyAve/1000;
+	outVal[5] = gzAve/1000;
 
-	fprintf(oFile, "%f\t%f\t%f\t%f\t%f\t%f\t\n",axAve,ayAve,azAve,gxAve,gyAve,gzAve);
+	//fprintf(oFile, "%f\t%f\t%f\t%f\t%f\t%f\t\n",axAve,ayAve,azAve,gxAve,gyAve,gzAve);
+	fprintf(oFile, "%f\t%f\t%f\t%f\t%f\t%f\t\n",outVal[0],outVal[1],outVal[2],outVal[3],outVal[4],outVal[5]);
 
 	free (timeVec);
 	free (axVec);

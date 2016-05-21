@@ -247,7 +247,13 @@ int main(int argc, char **argv)
 		//Write to output file here
 */
 		//fprintf(ofp,"%d,w,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n\r",k,xAy,yAz,zAx,xGy,yGz,zGx,dMmxA,dMmyA,dMmzA,dMmxG,dMmyG,dMmzG);
-		fprintf(ofp,"%f\t%f\t",aMag,gMag);
+		
+		//fprintf(ofp,"%f\t%f\t",aMag,gMag);
+		//Normalized Values for ML training
+		double aMagNorm,gMagNorm;
+		aMagNorm = (aMag-3000)/3000;
+		gMagNorm = (gMag-11500)/11500;
+		fprintf(ofp,"%f\t%f\t",aMagNorm,gMagNorm);
 
 		//
 		//Then do stuff for Elbow data
@@ -343,7 +349,10 @@ int main(int argc, char **argv)
 		}
 		fclose(ifp);
 		
-		fprintf(ofp,"%f\t%f\t",aMag,gMag);
+		aMagNorm = (aMag-3000)/3000;
+		gMagNorm = (gMag-11500)/11500;
+		fprintf(ofp,"%f\t%f\t",aMagNorm,gMagNorm);
+		//fprintf(ofp,"%f\t%f\t",aMag,gMag);
 
 		ifile_name = argv[9];
 		ifp = fopen(ifile_name,"r");
