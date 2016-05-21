@@ -28,9 +28,6 @@ void max_vector(float vector[], float* max, int n, float timeVector[], float* cu
 			*cutoffTime = timeVector[i]+1;
 		}
 	}
-	if (*max = -99999) {
-		*cutoffTime = 99999;
-	}
 }
 
 int main(int argc, char* argv[])
@@ -126,7 +123,7 @@ int main(int argc, char* argv[])
 //			//continue;
 //		}
 
-		if (time < cutOff)
+		if (time < cutOff || cutOff == -99999)
 			fprintf(oFile, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", time, amp1, amp2, amp3, amp4,
 									amp5, amp6, amp7, amp8, amp9);
 	}
