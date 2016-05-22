@@ -3,12 +3,12 @@
 // The cutoff point is 2 seconds after the freethrow motion
 // found by examining peaks of the ACC Magnitude csv
 
-// Input1: Peaks Output of ACC X axis Magnitude
-// Input2: Original Motion CSV File
+// Input1: Sensortile output
+// Input2: Time Features of Magnitude File
 // Output: Truncated CSV File
 
 
-// USAGE: ./truncateData <INPUT Motion Data> <Peaks File>  <OUTPUT Truncated Motion Data>
+// USAGE: ./truncateData <INPUT 1> <INPUT 2>  <OUTPUT Truncated Motion Data>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,9 +24,8 @@ void max_vector(float vector[], float* max, int n, float timeVector[], float* cu
 	
 	for (i = 0; i < n; i++) {
 		if ( *max < vector[i]){
-	
 			*max = vector[i];
-			*cutoffTime = timeVector[i]+ 1.5;
+			*cutoffTime = timeVector[i]+1;
 		}
 	}
 }
@@ -39,9 +38,9 @@ int main(int argc, char* argv[])
 	}
 	FILE* iFile;
 	FILE* oFile;
-	char* inputFileName = argv[1];
-	char* peaksFileName = argv[2];
-	char* truncFileName = argv[3];
+	char* inputFileName = argv[1]; // main file input
+	char* peaksFileName = argv[2]; // secondary file input to find time of peak
+	char* truncFileName = argv[3]; // truncated data file output
 	char* line = NULL;
 	ssize_t read;
 	size_t len = 0;
