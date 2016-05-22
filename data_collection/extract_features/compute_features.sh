@@ -5,6 +5,8 @@ if [ "$#" -ne 2 ]; then
 		exit
 	fi
 
+rm testing_features.csv
+
 for i in $(seq $1 $2);
 do
 
@@ -29,6 +31,8 @@ do
 	./magnitudeXCORR ../raw/gyrMag_${i}e.csv ../raw/gyrMag_${i}w.csv ../features/gyrXCORR_${i}.csv 20
 	./magnitudeXCORR ../raw/accMag_${i}e.csv ../raw/gyrMag_${i}e.csv ../features/eXCORR_${i}.csv 20
 	./magnitudeXCORR ../raw/accMag_${i}w.csv ../raw/gyrMag_${i}w.csv ../features/wXCORR_${i}.csv 20
+
+	./features_to_csv ../features/accMaxMin_${i}w.csv ../features/accMaxMin_${i}e.csv ../features/gyrMaxMin_${i}w.csv ../features/gyrMaxMin_${i}e.csv ../features/accTimeFeature_${i}w.csv ../features/accTimeFeature_${i}e.csv ../features/gyrTimeFeature_${i}w.csv ../features/gyrTimeFeature_${i}e.csv testing_features.csv
 
 #./compute_cross_correlation_peaks.sh ../raw/mdo_${i}e.csv
 #cp waveform_peaks_output_x.csv ../raw/mdo_${i}_Px.csv

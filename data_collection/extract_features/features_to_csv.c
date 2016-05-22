@@ -10,7 +10,7 @@
  *      maximum and minimum values
  *
  *	Usage:
- *	./features_to_csv <OUTPUT_FILE> <Start_Sample_Number> <End_Sample_Number>
+ *	./features_to_csv <accMaxMin_w> <accMaxMin_e> <gyrMaxMin_w> <gyrMaxMin_e> <accTimeFeature_w> <accTimeFeature_e> <gyrTimeFeature_w> <gyrTimeFeature_e> <OUTPUT_FILE>
  *
  */
 
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 {
 	FILE *ofp,*ifp;
 	char *ofile_name;
-        char ifile_name[40];
+        char *ifile_name;
         char *line = NULL;
         size_t len = 0;
         ssize_t read;
@@ -64,19 +64,19 @@ int main(int argc, char **argv)
 	int vector_length, rv, i;
 	//float xMA,yMA,zMA,xMG,yMG,zMG,xMAt,xmAt,yMAt,ymAt,zMAt,zmAt,xMGt,xmGt,yMGt,ymGt,zMGt,zmGt;	//Raw
 	float xAy,yAz,zAx,xGy,yGz,zGx,dMmxA,dMmyA,dMmzA,dMmxG,dMmyG,dMmzG;	//Computed Features
-	char* file_strt_accMm = "../features/accMaxMin_";
-	char* file_strt_gyrMm = "../features/gyrMaxMin_";
-	char* file_strt_accTf = "../features/accTimeFeature_";
-	char* file_strt_gyrTf = "../features/gyrTimeFeature_";
-	char* file_ext_w = "w.csv\0";
-	char* file_ext_e = "e.csv\0";
+	//char* file_strt_accMm = "../features/accMaxMin_";
+	//char* file_strt_gyrMm = "../features/gyrMaxMin_";
+	//char* file_strt_accTf = "../features/accTimeFeature_";
+	//char* file_strt_gyrTf = "../features/gyrTimeFeature_";
+	//char* file_ext_w = "w.csv\0";
+	//char* file_ext_e = "e.csv\0";
 
 	float * time_vector;
 	float * amplitude_vector;
 	float * time_vector2;
 	float * amplitude_vector2;
 
-	if (argc != 4) {
+	if (argc != 10) {
 		printf("Error - check usage (<input_file> <start_sample> <end_sample>)\n");
 		exit(EXIT_FAILURE);
 	}
@@ -93,8 +93,8 @@ int main(int argc, char **argv)
 	//	../features/gyrTimeFeature_1w.csv
 	//	../features/gyrTimeFeature_1e.csv
 
-	ofile_name = argv[1];
-	ofp = fopen(ofile_name, "w");
+	ofile_name = argv[9];
+	ofp = fopen(ofile_name, "a");
 	if (ofp == NULL)
 	{
 		printf("Failed to open output file. \'%s\' Check path.\n",ofile_name);
@@ -103,19 +103,21 @@ int main(int argc, char **argv)
 
 	//Begin iterations:
 	int k;
-	int max_iterator_val = 100;//*argv[3]-0x30;
-	for (k = *argv[2]-0x30; k < max_iterator_val; ++k)
+	int max_iterator_val = 1;//*argv[3]-0x30;
+	for (k = 0; k < max_iterator_val; ++k)
 	{
-		printf("k = %d\tmax_iterator_val = %d\n",k,max_iterator_val);
+		//printf("k = %d\tmax_iterator_val = %d\n",k,max_iterator_val);
 		//
 		//First do steps for the wrist data
 		//
 		//
-		ifile_name[0] = '\0';
+		/*ifile_name[0] = '\0';
 		strcat(ifile_name,file_strt_accMm);
 		ifile_name[strlen(ifile_name)]=k+0x30;
 		ifile_name[strlen(ifile_name)+1]='\0';
-		strcat(ifile_name,file_ext_w);
+		strcat(ifile_name,file_ext_w);*/
+
+		ifile_name = argv[1];
 
 		ifp = fopen(ifile_name,"r");
 		if (ifp == NULL)
@@ -126,13 +128,15 @@ int main(int argc, char **argv)
 		}
 		else
 		{
-
+		
 		//Do stuff here.
         	read = getline(&line, &len, ifp); //discard header of file
         	read = getline(&line, &len, ifp); //Load file data into line.                
         	read = getline(&line, &len, ifp); //Load file data into line.
-		
-                rv = sscanf(line, "%f,%f,%f\n", dMmxA,dMmyA,dMmzA);
+        	read = getline(&line, &len, ifp); //Load file data into line.
+
+                rv = sscanf(line, "%f,%f,%f\n", &dMmxA,&dMmyA,&dMmzA);
+
 		if (rv != 3)
 		{
 			printf("Failure to extract time feature data from axis file, printing dummy values!\n");
@@ -141,8 +145,8 @@ int main(int argc, char **argv)
 
         	read = getline(&line, &len, ifp); //Discard Header.                
         	read = getline(&line, &len, ifp); //Load file data into line.
-		
-		rv = sscanf(line, "%f,%f,%f,%f,%f,%f\n",xAy,yAz,zAx);
+
+		rv = sscanf(line, "%f,%f,%f\n",&xAy,&yAz,&zAx);
 		if (rv != 3)
 		{
 			printf("Failure to extract ratio data from axis file, printing dummy values!\n");
@@ -152,11 +156,13 @@ int main(int argc, char **argv)
 		fclose(ifp);
 
 
-		ifile_name[0] = '\0';
+/*		ifile_name[0] = '\0';
 		strcat(ifile_name,file_strt_gyrMm);
 		ifile_name[strlen(ifile_name)]=k+0x30;
 		ifile_name[strlen(ifile_name)+1]='\0';
-		strcat(ifile_name,file_ext_w);
+		strcat(ifile_name,file_ext_w);*/
+
+		ifile_name = argv[3];
 
 		ifp = fopen(ifile_name,"r");
 		if (ifp == NULL)
@@ -172,8 +178,9 @@ int main(int argc, char **argv)
         	read = getline(&line, &len, ifp); //discard header of file
         	read = getline(&line, &len, ifp); //Load file data into line.                
         	read = getline(&line, &len, ifp); //Load file data into line.
+        	read = getline(&line, &len, ifp); //Load file data into line.
 		
-                rv = sscanf(line, "%f,%f,%f\n", dMmxG,dMmyG,dMmzG);
+                rv = sscanf(line, "%f,%f,%f\n", &dMmxG,&dMmyG,&dMmzG);
 		if (rv != 3)
 		{
 			printf("Failure to extract time feature data from axis file, printing dummy values!\n");
@@ -183,7 +190,7 @@ int main(int argc, char **argv)
         	read = getline(&line, &len, ifp); //Discard Header.                
         	read = getline(&line, &len, ifp); //Load file data into line.
 		
-		rv = sscanf(line, "%f,%f,%f,%f,%f,%f\n",xAy,yAz,zAx);
+		rv = sscanf(line, "%f,%f,%f,\n",&xGy,&yGz,&zGx);
 		if (rv != 3)
 		{
 			printf("Failure to extract ratio data from axis file, printing dummy values!\n");
@@ -238,11 +245,13 @@ int main(int argc, char **argv)
 		//
 		//
 
-		ifile_name[0] = '\0';
+/*		ifile_name[0] = '\0';
 		strcat(ifile_name,file_strt_accMm);
 		ifile_name[strlen(ifile_name)]=k+0x30;
 		ifile_name[strlen(ifile_name)+1]='\0';
-		strcat(ifile_name,file_ext_e);
+		strcat(ifile_name,file_ext_e);*/
+
+		ifile_name = argv[2];
 
 		ifp = fopen(ifile_name,"r");
 		if (ifp == NULL)
@@ -258,8 +267,9 @@ int main(int argc, char **argv)
         	read = getline(&line, &len, ifp); //discard header of file
         	read = getline(&line, &len, ifp); //Load file data into line.                
         	read = getline(&line, &len, ifp); //Load file data into line.
+        	read = getline(&line, &len, ifp); //Load file data into line.
 		
-                rv = sscanf(line, "%f,%f,%f\n", dMmxA,dMmyA,dMmzA);
+                rv = sscanf(line, "%f,%f,%f\n", &dMmxA,&dMmyA,&dMmzA);
 		if (rv != 3)
 		{
 			printf("Failure to extract time feature data from axis file, printing dummy values!\n");
@@ -269,7 +279,7 @@ int main(int argc, char **argv)
         	read = getline(&line, &len, ifp); //Discard Header.                
         	read = getline(&line, &len, ifp); //Load file data into line.
 		
-		rv = sscanf(line, "%f,%f,%f\n",xAy,yAz,zAx);
+		rv = sscanf(line, "%f,%f,%f\n",&xAy,&yAz,&zAx);
 		if (rv != 3)
 		{
 			printf("Failure to extract ratio data from axis file, printing dummy values!\n");
@@ -279,11 +289,12 @@ int main(int argc, char **argv)
 		fclose(ifp);
 
 
-		ifile_name[0] = '\0';
+/*		ifile_name[0] = '\0';
 		strcat(ifile_name,file_strt_gyrMm);
 		ifile_name[strlen(ifile_name)]=k+0x30;
 		ifile_name[strlen(ifile_name)+1]='\0';
-		strcat(ifile_name,file_ext_e);
+		strcat(ifile_name,file_ext_e);*/
+		ifile_name = argv[4];
 
 		ifp = fopen(ifile_name,"r");
 		if (ifp == NULL)
@@ -298,8 +309,9 @@ int main(int argc, char **argv)
         	read = getline(&line, &len, ifp); //discard header of file
         	read = getline(&line, &len, ifp); //Load file data into line.                
         	read = getline(&line, &len, ifp); //Load file data into line.
+        	read = getline(&line, &len, ifp); //Load file data into line.
 		
-                rv = sscanf(line, "%f,%f,%f\n",dMmxG,dMmyG,dMmzG);
+                rv = sscanf(line, "%f,%f,%f\n",&dMmxG,&dMmyG,&dMmzG);
 		if (rv != 3)
 		{
 			printf("Failure to extract time feature data from axis file, printing dummy values!\n");
@@ -309,7 +321,7 @@ int main(int argc, char **argv)
         	read = getline(&line, &len, ifp); //Discard Header.                
         	read = getline(&line, &len, ifp); //Load file data into line.
 		
-		rv = sscanf(line, "%f,%f,%f\n",xGy,yGz,zGx);
+		rv = sscanf(line, "%f,%f,%f\n",&xGy,&yGz,&zGx);
 		if (rv != 3)
 		{
 			printf("Failure to extract ratio data from axis file, printing dummy values!\n");
