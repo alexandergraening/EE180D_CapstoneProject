@@ -3,6 +3,10 @@
 # Usage sensor_sample.sh -t <TIME IN SECONDS> 
 #
 #
+
+#echo 'remove C0:83:2B:31:5A:48' | bluetoothctl
+#echo 'remove C0:83:49:30:4B:4D' | bluetoothctl
+
 while getopts t: option
 do
 	case "${option}"
@@ -18,6 +22,5 @@ TRIGGER_TIME=$(($CURRENT_TIME+$TIME_OFFSET))
 echo Trigger Time: $TRIGGER_TIME
 
 
-
-./Acquire_LowPass_Continuous_2 0.05 $TRIGGER_TIME 1  &
-./Acquire_LowPass_Continuous_1 0.1 $TRIGGER_TIME 1  &
+./Acquire_LowPass_Continuous_2 0.2 $TRIGGER_TIME 3  &
+./Acquire_LowPass_Continuous_1 0.2 $TRIGGER_TIME 5  &
