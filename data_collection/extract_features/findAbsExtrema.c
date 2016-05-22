@@ -159,8 +159,8 @@ int main(int argc, char **argv)
 	
 	fprintf(oFileAcc, "time,xMin,time,xMax,time,yMin,time,yMax,time,zMin,time,zMax (Accelerometer)\n");
 	fprintf(oFileAcc, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",minTimeX,minX,maxTimeX,maxX,minTimeY,minY,maxTimeY,maxY,minTimeZ,minZ,maxTimeZ,maxZ);
-	fprintf(oFileAcc, "Time Features (x,y,z): %f,%f,%f\n", minTimeX-maxTimeX, minTimeY-maxTimeY, minTimeZ-maxTimeZ);
-	fprintf(oFileAcc, "Ratio of Maximums (XY, YZ, ZX): %f, %f, %f\n", maxX/maxY, maxY/maxZ, maxZ/maxX);	
+	fprintf(oFileAcc, "Time Features (x,y,z):\n%f,%f,%f\n", minTimeX-maxTimeX, minTimeY-maxTimeY, minTimeZ-maxTimeZ);
+	fprintf(oFileAcc, "Ratio of Maximums (XY, YZ, ZX):\n%f, %f, %f\n", maxX/maxY, maxY/maxZ, maxZ/maxX);	
 	fclose(oFileAcc);
 
 	oFileGyr = fopen(ofile_name_gyr, "w");
@@ -184,8 +184,8 @@ int main(int argc, char **argv)
 	
 	fprintf(oFileGyr, "time,xMin,time,xMax,time,yMin,time,yMax,time,zMin,time,zMax (Gyroscope)\n");
 	fprintf(oFileGyr, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",minTimeX,minX,maxTimeX,maxX,minTimeY,minY,maxTimeY,maxY,minTimeZ,minZ,maxTimeZ,maxZ);
-	fprintf(oFileGyr, "Time Features (x,y,z): %f,%f,%f\n", minTimeX-maxTimeX, minTimeY-maxTimeY, minTimeZ-maxTimeZ);	
-	fprintf(oFileAcc, "Ratio of Maximums (XY, YZ, ZX): %f, %f, %f\n", maxX/maxY, maxY/maxZ, maxZ/maxX);	
+	fprintf(oFileGyr, "Time Features (x,y,z):\n%f,%f,%f\n", minTimeX-maxTimeX, minTimeY-maxTimeY, minTimeZ-maxTimeZ);	
+	fprintf(oFileAcc, "Ratio of Maximums (XY, YZ, ZX):\n%f, %f, %f\n", maxX/maxY, maxY/maxZ, maxZ/maxX);	
 	fclose(oFileGyr);
 
     	return 0;

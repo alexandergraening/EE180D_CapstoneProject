@@ -14,11 +14,11 @@ do
 	./truncateData ../raw/mdo_${i}w.csv ../features/x_peaks_${i}w.csv ../raw/truncatedData/trunc_mdo_${i}w.csv
 	./truncateData ../raw/mdo_${i}e.csv ../features/x_peaks_${i}e.csv ../raw/truncatedData/trunc_mdo_${i}e.csv
 
-	./accGyrMag ../raw/mdo_${i}w.csv ../raw/accMag_${i}w.csv ../raw/gyrMag_${i}w.csv
-	./accGyrMag ../raw/mdo_${i}e.csv ../raw/accMag_${i}e.csv ../raw/gyrMag_${i}e.csv
+	./accGyrMag ../raw/truncatedData/trunc_mdo_${i}w.csv ../raw/accMag_${i}w.csv ../raw/gyrMag_${i}w.csv
+	./accGyrMag ../raw/truncatedData/trunc_mdo_${i}e.csv ../raw/accMag_${i}e.csv ../raw/gyrMag_${i}e.csv
 
-	./findAbsExtrema ../raw/mdo_${i}w.csv ../features/accMaxMin_${i}w.csv ../features/gyrMaxMin_${i}w.csv
-	./findAbsExtrema ../raw/mdo_${i}e.csv ../features/accMaxMin_${i}e.csv ../features/gyrMaxMin_${i}e.csv
+	./findAbsExtrema ../raw/truncatedData/trunc_mdo_${i}w.csv ../features/accMaxMin_${i}w.csv ../features/gyrMaxMin_${i}w.csv
+	./findAbsExtrema ../raw/truncatedData/trunc_mdo_${i}e.csv ../features/accMaxMin_${i}e.csv ../features/gyrMaxMin_${i}e.csv
 
 	./findMagnitudeExtrema ../raw/accMag_${i}e.csv ../features/accTimeFeature_${i}e.csv
 	./findMagnitudeExtrema ../raw/gyrMag_${i}e.csv ../features/gyrTimeFeature_${i}e.csv
