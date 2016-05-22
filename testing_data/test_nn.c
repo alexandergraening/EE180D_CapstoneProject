@@ -33,7 +33,7 @@ int main(int argc, char* argv [])
 	int N_SAMPLES;
 
 	// N_SAMPLES x N_FEATURES 2D array of features
-	float* features;
+	double* features;
 
 	// count number of lines in the file and allocate enough space to store them
 	N_SAMPLES = 0;
@@ -41,7 +41,7 @@ int main(int argc, char* argv [])
 		N_SAMPLES++;
 	}
 
-	features = (float *) malloc(sizeof(float) * N_SAMPLES * N_FEATURES);
+	features = (double *) malloc(sizeof(double) * N_SAMPLES * N_FEATURES);
 	// index into the 2d array with features[feature_num + sample_num * N_FEATURES]
 	
 	rewind(iFile);
@@ -49,28 +49,26 @@ int main(int argc, char* argv [])
 	int j, k;
 	for (j = 0; j < N_SAMPLES; j++) {
 		for( k = 0; k < N_FEATURES - 1; k++) 
-			fscanf(iFile, "%f ", &features[k + j * N_FEATURES]);
-		fscanf(iFile, "%f\n", &features[N_FEATURES-1 + j * N_FEATURES]);
+			fscanf(iFile, "%lf ", &features[k + j * N_FEATURES]);
+		fscanf(iFile, "%lf\n", &features[N_FEATURES-1 + j * N_FEATURES]);
 	}
 
-
+/*
 	for (j = 0; j < N_SAMPLES; j++) {
+		printf("Trial %d Features: " , j+1);
 		for (k = 0; k < N_FEATURES; k++) {
-			printf("%f ", features[k + j*N_FEATURES]);
+			printf("%lf ", features[k + j*N_FEATURES]);
 		}
 		printf("\n");
 	}
 
-/*	
+	
 	// testing if this wrote correctly... 
 	for (j = 0; j < N_SAMPLES * N_FEATURES; j++)
 		printf("index %d is %f\n", j, features[j]);
 
 */
 	
-	
-
-
 	// Input the features into the Neural Network
     	struct fann *ann;
     	ann = fann_create_from_file("../training_data/TEST.net");
@@ -80,7 +78,7 @@ int main(int argc, char* argv [])
 	for (j = 0; j < N_SAMPLES; j++) {
 		for (k = 0; k < N_FEATURES; k++) {
 			inputs[k] = features[k + j * N_FEATURES];
-			printf("Inputs is %f\n", features[k+j*N_FEATURES]);
+		//	printf("Inputs is %lf\n", features[k+j*N_FEATURES]);
 		}
         	calc_out = fann_run(ann, inputs);
 
@@ -97,13 +95,13 @@ int main(int argc, char* argv [])
            		 }
        		}
 		if (location == 0)
-        		printf("Trial %d result: UNDER\n", j);
+        		printf("Trial %d result: UNDER\n", j+1);
 	
 		if (location == 1)
-        		printf("Trial %d result: IN\n", j);
+        		printf("Trial %d result: IN\n", j+1);
 	
-		if (location == 0)
-        		printf("Trial %d result: OVER\n", j);
+		if (location == 2)
+        		printf("Trial %d result: OVER\n", j+1);
 	
 	
 	}
