@@ -3,6 +3,7 @@ echo ""
 
 for i in $(seq 1 16);
 do
+./compute_cross_correlation_peaks.sh ../data_files/mdo${i}.csv
 cp waveform_peaks_output_x.csv ../data_files/mdo_${i}_Px.csv
 cp waveform_peaks_output_y.csv ../data_files/mdo_${i}_Py.csv
 cp xcorr_waveform_peaks_output_x.csv ../data_files/mdo_${i}_xcorr_Pxy.csv
