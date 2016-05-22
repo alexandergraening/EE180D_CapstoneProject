@@ -23,5 +23,5 @@ Important cross correlation computations:
 	Vector magnitude of AccelerationWrist crossed with GyroWrist
 	Vector magnitude of AccelerationElbow crossed with GyroElbow
 
-
-
+Compute Max and Min for x,y,z for acceleration and gyro.
+Compute time values for each of these.
