@@ -193,7 +193,9 @@ int main(int argc, char **argv)
 	}
 
 	/* count the number of lines in the file */
-	read = getline(&line, &len, fp); //discard header of file
+	read = getline(&line, &len, fp); //discard header of file	
+	if(line[0] == '\n')
+		read = getline(&line, &len, fp); //discard the first line of data because it is sometimes blank
 	N_SAMPLES = 0;
 	while ((read = getline(&line, &len, fp)) != -1) {
 		N_SAMPLES++;
@@ -202,7 +204,8 @@ int main(int argc, char **argv)
 	/* go back to the start of the file so that the data can be read */
 	rewind(fp);
 	read = getline(&line, &len, fp); //discard header of file
-
+	if(line[0] == '\n')
+		read = getline(&line, &len, fp); //discard the first line of data because it is sometimes blank
 	/* start reading the data from the file into the data structures */
 	i = 0;
 	t = (float *) malloc(sizeof(float) * N_SAMPLES);
@@ -211,6 +214,10 @@ int main(int argc, char **argv)
 	z = (float *) malloc(sizeof(float) * N_SAMPLES);
 	while ((read = getline(&line, &len, fp)) != -1) {
 		/* parse the data */
+		if(line[0] == '\n') {
+			printf("empty line detected\n");
+			continue;
+		}
 		rv = sscanf(line, "%f,%f,%f,%f\n", &t[i], &x[i], &y[i], &z[i]);
 		if (rv != 4) {
 			fprintf(stderr,
@@ -221,7 +228,8 @@ int main(int argc, char **argv)
 					"Exiting",
 					ifile_name
 			       );
-			exit(EXIT_FAILURE);
+			//exit(EXIT_FAILURE);
+			continue;
 		}
 		i++;
 	}

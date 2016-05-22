@@ -3,12 +3,12 @@
 // The cutoff point is 2 seconds after the freethrow motion
 // found by examining peaks of the ACC Magnitude csv
 
-// Input1: Peaks Output of ACC X axis Magnitude
-// Input2: Original Motion CSV File
+// Input1: Sensortile output
+// Input2: Time Features of Magnitude File
 // Output: Truncated CSV File
 
 
-// USAGE: ./truncateData <INPUT Motion Data> <Peaks File>  <OUTPUT Truncated Motion Data>
+// USAGE: ./truncateData <INPUT 1> <INPUT 2>  <OUTPUT Truncated Motion Data>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,21 +16,16 @@
 
 
 // Find the maximum peak within the freethrow motion and cutoff time for truncation
-void max_vector(float vector[], float* max, int n, 
-		float timeVector[], float timeThreshold,
-		float* cutoffTime)
+void max_vector(float vector[], float* max, int n, float timeVector[], float* cutoffTime)
 {
 
 	int i;
-	//printf("%f, %f, %f\n", vector[0], vector[1], vector[2]);
-	*max = vector[1];
+	*max = -999;
 	
-	//printf("for loop iteration : %d\n", 4);
-	for (i = 1; i < n; i++) {
-		if ( *max < vector[i] && timeVector[i] < timeThreshold){
-	
+	for (i = 0; i < n; i++) {
+		if ( *max < vector[i]){
 			*max = vector[i];
-			*cutoffTime = timeVector[i]+ 1.5;
+			*cutoffTime = timeVector[i]+1;
 		}
 	}
 }
@@ -43,9 +38,9 @@ int main(int argc, char* argv[])
 	}
 	FILE* iFile;
 	FILE* oFile;
-	char* inputFileName = argv[1];
-	char* peaksFileName = argv[2];
-	char* truncFileName = argv[3];
+	char* inputFileName = argv[1]; // main file input
+	char* peaksFileName = argv[2]; // secondary file input to find time of peak
+	char* truncFileName = argv[3]; // truncated data file output
 	char* line = NULL;
 	ssize_t read;
 	size_t len = 0;
@@ -76,18 +71,21 @@ int main(int argc, char* argv[])
 	timeVec = (float*) malloc(sizeof(float) * lineCount);
 	ampVec = (float*) malloc(sizeof(float) * lineCount);
 	
-	int i = 0;		
+	int i;
+	i = 0;
 	while((read = getline(&line, &len, iFile)) != -1) 
 	{
-		rv = sscanf(line, "%f,  %f\n", &timeVec[i], &ampVec[i]);
+		rv = sscanf(line, "%f,%f\n", &timeVec[i], &ampVec[i]);
 		if (rv != 2) {
-		//	fprintf(stderr, "truncData: skipping line %d in peaks file \n", i);
+		//	fprintf(stderr, "truncData: skipping line %d in peaks file; %d variables read in %s\n", i, rv, peaksFileName);
 			continue;
 		}
 		i++;
 	}
-	max_vector(ampVec, &maxPeak, lineCount, timeVec, 3, &cutOff); 
-		printf("cutoff time is : %f\n", cutOff);	
+
+
+	max_vector(ampVec, &maxPeak, lineCount, timeVec, &cutOff); 
+	printf("cutoff time for %s : %f and maxpeak is: %f\n", inputFileName, cutOff, maxPeak);	
 	fclose(iFile);
 	free (timeVec);
 	free (ampVec);
@@ -100,7 +98,7 @@ int main(int argc, char* argv[])
 		fprintf(stderr, "truncData: failed to read from input motion file\n");
 		exit(EXIT_FAILURE);
 	}
-	if (iFile == NULL) {
+	if (oFile == NULL) {
 		fprintf(stderr, "truncData: failed to open output file\n");
 		exit(EXIT_FAILURE);
 	}
@@ -110,7 +108,7 @@ int main(int argc, char* argv[])
 	rewind(iFile);
 		
 	read = getline(&line, &len, iFile); // disregard header of file
-	
+	read = getline(&line, &len, iFile); // disregard the sometimes blank first line of data
 	float time, amp1, amp2, amp3, amp4, amp5, amp6, amp7, amp8, amp9;
 	i = 0;		
 	while((read = getline(&line, &len, iFile)) != -1) 
