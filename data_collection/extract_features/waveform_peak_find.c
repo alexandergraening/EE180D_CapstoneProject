@@ -182,7 +182,7 @@ int main(int argc, char **argv)
 
 
 	/* open the input file */
-	printf(" Input file \'%s\'.\n", ifile_name);
+	//printf(" Input file \'%s\'.\n", ifile_name);
 	fp = fopen(ifile_name, "r");
 	if (fp == NULL) {
 		fprintf(stderr, 
@@ -232,7 +232,7 @@ int main(int argc, char **argv)
 	 * find indicies of peaks
 	 * find indicies of troughs
 	 */
-	printf("Thresholds for X axis signal: %f and Y axis signal: %f\n", pk_threshold_x, pk_threshold_y);
+	//printf("Thresholds for X axis signal: %f and Y axis signal: %f\n", pk_threshold_x, pk_threshold_y);
 	P_i_x = (float *) malloc(sizeof(float) * N_SAMPLES);
 	T_i_x = (float *) malloc(sizeof(float) * N_SAMPLES);
 	rv = find_peaks_and_troughs(
@@ -275,7 +275,7 @@ int main(int argc, char **argv)
  * 	Write X Axis data
  */
 
-	printf("X-Axis peaks data output file \'%s\'.\n", x_ofile_pt_name);
+	//printf("X-Axis peaks data output file \'%s\'.\n", x_ofile_pt_name);
 	fp = fopen(x_ofile_pt_name, "w");
 	if (fp == NULL) {
 		fprintf(stderr, 
@@ -312,7 +312,7 @@ int main(int argc, char **argv)
 	fclose(fp);
 
 	/* open the output file to write the x axis data */
-	printf("X-Axis plot data file \'%s\'.\n", x_ofile_st_name);
+	//printf("X-Axis plot data file \'%s\'.\n", x_ofile_st_name);
 	fp = fopen(x_ofile_st_name, "w");
 	if (fp == NULL) {
 		fprintf(stderr, 
@@ -337,7 +337,7 @@ int main(int argc, char **argv)
  *
  */
  
-	printf("Y-Axis peaks data file: \'%s\'.\n", y_ofile_pt_name);
+	//printf("Y-Axis peaks data file: \'%s\'.\n", y_ofile_pt_name);
 	fp = fopen(y_ofile_pt_name, "w");
 	if (fp == NULL) {
 		fprintf(stderr,
@@ -377,7 +377,7 @@ int main(int argc, char **argv)
 	fclose(fp);
 
 	/* open the output file to write the y axis data */
-	printf("Y-Axis plot data file: \'%s\'.\n", y_ofile_st_name);
+	//printf("Y-Axis plot data file: \'%s\'.\n", y_ofile_st_name);
 	fp = fopen(y_ofile_st_name, "w");
 	if (fp == NULL) {
 			fprintf(stderr, 
@@ -401,7 +401,7 @@ int main(int argc, char **argv)
  *
  */
  
-	printf("Z-Axis peaks data file: \'%s\'.\n", z_ofile_pt_name);
+	//printf("Z-Axis peaks data file: \'%s\'.\n", z_ofile_pt_name);
 	fp = fopen(z_ofile_pt_name, "w");
 	if (fp == NULL) {
 		fprintf(stderr,
@@ -441,7 +441,7 @@ int main(int argc, char **argv)
 	fclose(fp);
 
 	/* open the output file to write the y axis data */
-	printf("Z-Axis plot data file: \'%s\'.\n", z_ofile_st_name);
+	//printf("Z-Axis plot data file: \'%s\'.\n", z_ofile_st_name);
 	fp = fopen(z_ofile_st_name, "w");
 	if (fp == NULL) {
 			fprintf(stderr, 

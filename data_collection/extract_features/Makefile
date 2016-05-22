@@ -1,4 +1,4 @@
-all: waveform_peak_find accGyrMag bubble_sort_norm waveform_feature_xcorr magnitudeXCORR findAbsExtrema
+all: waveform_peak_find accGyrMag bubble_sort_norm waveform_feature_xcorr magnitudeXCORR findAbsExtrema findMagnitudeExtrema
 
 waveform_peak_find: waveform_peak_find.c
 	gcc -o waveform_peak_find waveform_peak_find.c -lm
@@ -18,6 +18,9 @@ magnitudeXCORR: magnitudeXCORR.c
 findAbsExtrema: findAbsExtrema.c
 	gcc -o findAbsExtrema findAbsExtrema.c
 
+findMagniudeExtrema: findMagnitudeExtrema.c
+	gcc -o findMagnitudeExtrema findMagnitudeExtrema.c
+
 clean:
 	rm -rf waveform_peak_find *~
 	rm -rf accGyrMag
@@ -25,3 +28,4 @@ clean:
 	rm -rf waveform_feature_xcorr
 	rm -rf magnitudeXCORR
 	rm -rf findAbsExtrema
+	rm -rf findMagnitudeExtrema
