@@ -372,7 +372,7 @@ int main(int argc, char *argv[]) {
 
 	input_file = "motion_data_1.dat";
 
-	size = BLE_parse(input_file);
+	size = 3*BLE_parse(input_file);
 	if(size == 0){
 			printf("ERROR (stream_parser): BLE Data formatted incorrectly.\n");
 		    	return 0;
