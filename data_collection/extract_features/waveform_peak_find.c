@@ -17,8 +17,11 @@
  *	3) Waveform data file for gnuplot processing containing X axis data
  *	4) Waveform peaks data file for Y axis
  *	5) Waveform data file for gnuplot processing containing Y axis data
- *	6) Peak search threshold for X axis data
- *	7) Peak search threshold for Y axis data
+ *	6) Waveform peaks data file for Z axis
+ *	7) Waveform data file for gnuplot processing containing Z axis data
+ *	8) Peak search threshold for X axis data
+ *	9) Peak search threshold for Y axis data
+ *	10) Peak search threshold for Z axis data
  *
  */
 
@@ -157,9 +160,7 @@ int main(int argc, char **argv)
 	 * <output_peaks_y> <output_waveform_y> <threshold_value>
 	 */
 
-
-
-	        if (argc != 10) {
+	        if (argc != 11) {
 	               fprintf(stderr, 
 	                      "Error - check usage\n"
 			      );
