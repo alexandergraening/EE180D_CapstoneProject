@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 	ofile_name_gyr = argv[3];
 
         /* open the input file */
-        printf(" Input file \'%s\'.\n", ifile_name);
+        //printf(" Input file \'%s\'.\n", ifile_name);
         iFile = fopen(ifile_name, "r");
         if (iFile == NULL) {
                 fprintf(stderr, 

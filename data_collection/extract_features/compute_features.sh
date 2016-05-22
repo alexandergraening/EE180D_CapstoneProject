@@ -1,5 +1,4 @@
 echo "Beginning Feature Computation"
-echo ""
 
 if [ "$#" -ne 2 ]; then
 		echo "Please enter a starting sample number and an ending sample number"
@@ -23,6 +22,5 @@ do
 #./bubble_sort_norm ../raw/mdo_${i}_Px.csv ../raw/mdo_${i}_Py.csv ../raw/mdo_${i}_Px_sortnorm.csv ../raw/mdo_${i}_Py_sortnorm.csv
 done
 
-echo ""
 echo "Feature Extraction Complete"
 echo ""

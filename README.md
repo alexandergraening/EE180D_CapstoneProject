@@ -60,4 +60,7 @@ Week 3:
 
 
 Week 4:
-
+	Integrated cross correlation code with the rest of the project
+	Added a "plot_single_waveform.sh" script to plot a single waveform at a time to allow easier inspection of certain file waveforms
+	Fixed bug that would prevent easy plotting
+	Cleaned up code to minimize the number of programs that run to extract features and removed print statements that run when code is working. (Only left error message statements)
