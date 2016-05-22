@@ -119,7 +119,7 @@ int main(int argc, char* argv[])
 	double gyAve = gySum/lineCount;
 	double gzAve = gzSum/lineCount;
 
-	fprintf(oFile, "%f,%f,%f,%f,%f,%f\n",axAve,ayAve,azAve,gxAve,gyAve,gzAve);
+	fprintf(oFile, "%f\t%f\t%f\t%f\t%f\t%f\t\n",axAve,ayAve,azAve,gxAve,gyAve,gzAve);
 
 	free (timeVec);
 	free (axVec);

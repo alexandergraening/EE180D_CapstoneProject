@@ -247,7 +247,7 @@ int main(int argc, char **argv)
 		//Write to output file here
 */
 		//fprintf(ofp,"%d,w,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n\r",k,xAy,yAz,zAx,xGy,yGz,zGx,dMmxA,dMmyA,dMmzA,dMmxG,dMmyG,dMmzG);
-		fprintf(ofp,"%f,%f,",aMag,gMag);
+		fprintf(ofp,"%f\t%f\t",aMag,gMag);
 
 		//
 		//Then do stuff for Elbow data
@@ -343,7 +343,7 @@ int main(int argc, char **argv)
 		}
 		fclose(ifp);
 		
-		fprintf(ofp,"%f,%f,",aMag,gMag);
+		fprintf(ofp,"%f\t%f\t",aMag,gMag);
 
 		ifile_name = argv[9];
 		ifp = fopen(ifile_name,"r");
@@ -373,7 +373,7 @@ int main(int argc, char **argv)
 				if (line[k] == '\n')
 					line[k] = '\0';
 			}
-			fprintf(ofp,"%s,",line);
+			fprintf(ofp,"%s",line);
 		}
 
 		fclose(ifp);
