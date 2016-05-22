@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 	ofile_name_gyr = argv[3];
 
         /* open the input file */
-        printf(" Input file \'%s\'.\n", ifile_name);
+        //printf(" Input file \'%s\'.\n", ifile_name);
         iFile = fopen(ifile_name, "r");
         if (iFile == NULL) {
                 fprintf(stderr, 
@@ -153,10 +153,10 @@ int main(int argc, char **argv)
 	max_vector(amplitude_vector_acc_Z, time_vector, &vec_max,&maxTime, vector_length);
 	float minZ = vec_min; float minTimeZ = minTime;
 	float maxZ = vec_max; float maxTimeZ = maxTime;
-	printf("Accelerometer\n");
+	/*printf("Accelerometer\n");
 	printf("X Minimum: %f at time: %f	X Maximum: %f at time %f\n", minX, minTimeX, maxX, maxTimeX);
 	printf("Y Minimum: %f at time: %f	Y Maximum: %f at time %f\n", minY, minTimeY, maxY, maxTimeY);
-	printf("Z Minimum: %f at time: %f	Z Maximum: %f at time %f\n", minZ, minTimeZ, maxZ, maxTimeZ);
+	printf("Z Minimum: %f at time: %f	Z Maximum: %f at time %f\n", minZ, minTimeZ, maxZ, maxTimeZ);*/
 	
 	fprintf(oFileAcc, "time,xMin,time,xMax,time,yMin,time,yMax,time,zMin,time,zMax (Accelerometer)\n");
 	fprintf(oFileAcc, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",minTimeX,minX,maxTimeX,maxX,minTimeY,minY,maxTimeY,maxY,minTimeZ,minZ,maxTimeZ,maxZ);
@@ -177,10 +177,10 @@ int main(int argc, char **argv)
 	max_vector(amplitude_vector_gyr_Z, time_vector, &vec_max,&maxTime, vector_length);
 	minZ = vec_min; minTimeZ = minTime;
 	maxZ = vec_max; maxTimeZ = maxTime;
-	printf("Gyroscope\n");
+	/*printf("Gyroscope\n");
 	printf("X Minimum: %f at time: %f	X Maximum: %f at time %f\n", minX, minTimeX, maxX, maxTimeX);
 	printf("Y Minimum: %f at time: %f	Y Maximum: %f at time %f\n", minY, minTimeY, maxY, maxTimeY);
-	printf("Z Minimum: %f at time: %f	Z Maximum: %f at time %f\n", minZ, minTimeZ, maxZ, maxTimeZ);
+	printf("Z Minimum: %f at time: %f	Z Maximum: %f at time %f\n", minZ, minTimeZ, maxZ, maxTimeZ);*/
 	
 	fprintf(oFileGyr, "time,xMin,time,xMax,time,yMin,time,yMax,time,zMin,time,zMax (Gyroscope)\n");
 	fprintf(oFileGyr, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n",minTimeX,minX,maxTimeX,maxX,minTimeY,minY,maxTimeY,maxY,minTimeZ,minZ,maxTimeZ,maxZ);

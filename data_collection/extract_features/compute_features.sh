@@ -1,13 +1,13 @@
 echo "Beginning Feature Computation"
-echo ""
 
-if [ "$#" -ne 2]; then
+if [ "$#" -ne 2 ]; then
 		echo "Please enter a starting sample number and an ending sample number"
 		exit
 	fi
 
 for i in $(seq $1 $2);
 do
+<<<<<<< HEAD
 	./accGyrMag ../raw/mdo_${i}w.csv ../raw/accMag_${i}w.csv ../raw/gyrMag_${i}w.csv
 	./accGyrMag ../raw/mdo_${i}e.csv ../raw/accMag_${i}e.csv ../raw/gyrMag_${i}e.csv
 	./findAbsExtrema ../raw/mdo_${i}w.csv ../features/accMaxMin_${i}w.csv ../features/gyrMaxMin_${i}w.csv
@@ -16,6 +16,13 @@ do
 	./magnitudeXCORR ../raw/gyrMag_${i}e.csv ../raw/gyrMag_${i}w.csv ../features/gyrXCORR_${i}.csv 20
 	./magnitudeXCORR ../raw/accMag_${i}e.csv ../raw/gyrMag_${i}e.csv ../features/eXCORR_${i}.csv 20
 	./magnitudeXCORR ../raw/accMag_${i}w.csv ../raw/gyrMag_${i}w.csv ../features/wXCORR_${i}.csv 20
+=======
+./accGyrMag ../raw/mdo_${i}w.csv ../raw/accMag_${i}w.csv ../raw/gyrMag_${i}w.csv
+./accGyrMag ../raw/mdo_${i}e.csv ../raw/accMag_${i}e.csv ../raw/gyrMag_${i}e.csv
+./findAbsExtrema ../raw/mdo_${i}w.csv ../features/accMaxMin_${i}w.csv ../features/gyrMaxMin_${i}w.csv
+./findAbsExtrema ../raw/mdo_${i}e.csv ../features/accMaxMin_${i}e.csv ../features/gyrMaxMin_${i}e.csv
+
+>>>>>>> 49865eb0d2515f7c05748ffa8940dc4b43ddc78b
 #./compute_cross_correlation_peaks.sh ../raw/mdo_${i}e.csv
 #cp waveform_peaks_output_x.csv ../raw/mdo_${i}_Px.csv
 #cp waveform_peaks_output_y.csv ../raw/mdo_${i}_Py.csv
@@ -26,6 +33,5 @@ do
 #./bubble_sort_norm ../raw/mdo_${i}_Px.csv ../raw/mdo_${i}_Py.csv ../raw/mdo_${i}_Px_sortnorm.csv ../raw/mdo_${i}_Py_sortnorm.csv
 done
 
-echo ""
 echo "Feature Extraction Complete"
 echo ""
