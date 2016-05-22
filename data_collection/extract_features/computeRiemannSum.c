@@ -43,20 +43,29 @@ int main(int argc, char* argv[])
 	
 	// storage for values in Peak File
 	float *timeVec;
-	float *ampVec;
 	float *axVec;
 	float *ayVec;
 	float *azVec;
+	float *gxVec;
+	float *gyVec;
+	float *gzVec;
+	float *mxVec;
+	float *myVec;
+	float *mzVec;
 	int rv; 	// count number of variables read with sscanf
 
 	float maxPeak;
-	float cutOff;
-	
+	float cutOff;	
 
-	// Count the number of lines in the Peaks File
-	iFile = fopen(peaksFileName, "r");
+	// Count the number of lines in the Input File
+	iFile = fopen(inputFileName, "r");
 	if (iFile == NULL) {
 		fprintf(stderr, "computeRiemannSum: failed to read from input_file\n");
+		exit(EXIT_FAILURE);
+	}
+	oFile = fopen(outputFileName, "w");
+	if (oFile == NULL) {
+		fprintf(stderr, "truncData: failed to open output file\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -67,64 +76,61 @@ int main(int argc, char* argv[])
 	rewind(iFile); // back to top
 	read = getline(&line, &len, iFile); // disregard header of file
 	timeVec = (float*) malloc(sizeof(float) * lineCount);
-	ampVec = (float*) malloc(sizeof(float) * lineCount);
 	axVec = (float*) malloc(sizeof(float) * lineCount);
 	ayVec = (float*) malloc(sizeof(float) * lineCount);
 	azVec = (float*) malloc(sizeof(float) * lineCount);
-	int i;
-	i = 0;
-	while((read = getline(&line, &len, iFile)) != -1) 
+	gxVec = (float*) malloc(sizeof(float) * lineCount);
+	gyVec = (float*) malloc(sizeof(float) * lineCount);
+	gzVec = (float*) malloc(sizeof(float) * lineCount);
+	mxVec = (float*) malloc(sizeof(float) * lineCount);
+	myVec = (float*) malloc(sizeof(float) * lineCount);
+	mzVec = (float*) malloc(sizeof(float) * lineCount);
+
+	int i;	
+	read = getline(&line, &len, iFile); // disregard header of file
+	i = 0;		
+	while((read = getline(&line, &len, iFile)) != -1 && i < lineCount) 
 	{
-		rv = sscanf(line, "%f,%f,%f,%f\n", &timeVec[i], &ampVec[i]);
-		if (rv != 2) {
-	//	fprintf(stderr, "truncData: skipping line %d in peaks file; %d variables read in %s\n", i, rv, peaksFileName);
-			continue;
-		}
-		i++;
+		rv = sscanf(line, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", &timeVec[i], &axVec[i], &ayVec[i], &azVec[i], &gxVec[i], &gyVec[i], &gzVec[i], &mxVec[i], &myVec[i], &mzVec[i]);
+		++i;
 	}
 
+	double axSum = 0;
+	double aySum = 0;
+	double azSum = 0;
+	double gxSum = 0;
+	double gySum = 0;
+	double gzSum = 0;
+	i = 0;
+	while(i < lineCount)
+	{
+		axSum+=axVec[i];
+		aySum+=ayVec[i];
+		azSum+=azVec[i];
+		gxSum+=gxVec[i];
+		gySum+=gyVec[i];
+		gzSum+=gzVec[i];
+		++i;
+	}
+	double axAve = axSum/lineCount;
+	double ayAve = aySum/lineCount;
+	double azAve = azSum/lineCount;
+	double gxAve = gxSum/lineCount;
+	double gyAve = gySum/lineCount;
+	double gzAve = gzSum/lineCount;
 
-	max_vector(ampVec, &maxPeak, lineCount, timeVec, &cutOff); 
-	printf("cutoff time for %s : %f and maxpeak is: %f\n", inputFileName, cutOff, maxPeak);	
-	fclose(iFile);
+	fprintf(oFile, "%f,%f,%f,%f,%f,%f\n",axAve,ayAve,azAve,gxAve,gyAve,gzAve);
+
 	free (timeVec);
-	free (ampVec);
 	free (axVec);
 	free (ayVec);
 	free (azVec);
-
-	// Open and truncate the csv file
-	oFile = fopen(truncFileName, "w");
-
-	if (oFile == NULL) {
-		fprintf(stderr, "truncData: failed to open output file\n");
-		exit(EXIT_FAILURE);
-	}
-	lineCount = 0;
-	while((read = getline(&line, &len, iFile)) != -1)
-		lineCount++;
-	rewind(iFile);
-		
-	read = getline(&line, &len, iFile); // disregard header of file
-	read = getline(&line, &len, iFile); // disregard the sometimes blank first line of data
-	float time, amp1, amp2, amp3, amp4, amp5, amp6, amp7, amp8, amp9;
-	i = 0;		
-	while((read = getline(&line, &len, iFile)) != -1) 
-	{
-		rv = sscanf(line, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", &time, &amp1, &amp2, &amp3, &amp4, 
-								&amp5, &amp6, &amp7, &amp8, &amp9);
-		
-	//	printf("Line %d: %f, %f, %f, %f, %f, %f, %f, %f, %f, %f\n", i, time, amp1, amp2, amp3, amp4, amp5, amp6, amp7, amp8, amp9);
-//		if (rv != 10) {
-//			fprintf(stderr, "truncData: skipping line %d in trunc file\n", i);
-//			//continue;
-//		}
-
-		if (timeVec[i] < cutOff)
-			fprintf(oFile, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n", time, amp1, amp2, amp3, amp4,
-									amp5, amp6, amp7, amp8, amp9);
-		i++;
-	}
+	free (gxVec);
+	free (gyVec);
+	free (gzVec);
+	free (mxVec);
+	free (myVec);
+	free (mzVec);
 
 	fclose(iFile);
 	fclose(oFile);
