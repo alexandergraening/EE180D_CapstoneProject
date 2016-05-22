@@ -8,7 +8,7 @@ if [ "$#" -ne 1 ]; then
 		exit
 	fi
 
-cp $1 test.csv
-gnuplot testing_gnuplot_script
+cp $1 quaternion_test.csv
+gnuplot quaternion_gnuplot_script
 sudo cp test.png /var/www/html/graphics
-rm test.csv
+rm quaternion_test.csv

@@ -17,16 +17,19 @@ int main()
 	int outputValues1;
 	int outputValues2;
 	int outputValues3;
+	int outputValues4;
+	int outputValues5;
 	printf("Successfully created storage ints!\n");
 	
 	printf("About to read from files.\n");
 	fprintf(outputFile,"250 3 5\n");
 	int k;
-	fscanf(inputFile1,"%d %d %d",&outputValues1,&outputValues2,&outputValues3);
-	for (k = 0; k < 100;++k)
+	for (k = 0; k < 50;++k)
 	{
 		fscanf(inputFile1,"%d %d %d",&outputValues1,&outputValues2,&outputValues3);
-		fprintf(outputFile,"%d %d %d\n",outputValues1,outputValues2, outputValues3);
+		fprintf(outputFile,"%d %d %d\n",outputValues1,outputValues2,outputValues3);
+		fscanf(inputFile1,"%d %d %d %d %d",&outputValues1,&outputValues2,&outputValues3,&outputValues4,&outputValues5);
+		fprintf(outputFile,"%d %d %d %d %d\n",outputValues1,outputValues2,outputValues3,outputValues4,outputValues5);
 	}
 	fclose(inputFile1);
 
@@ -38,11 +41,12 @@ int main()
 		return 1;
 	}
 	printf("Opened files successfully!\n");
-	fscanf(inputFile2,"%d %d %d",&outputValues1,&outputValues2,&outputValues3);
 	for (k = 0; k < 100;++k)
 	{
 		fscanf(inputFile2,"%d %d %d",&outputValues1,&outputValues2,&outputValues3);
 		fprintf(outputFile,"%d %d %d\n",outputValues1,outputValues2, outputValues3);
+		fscanf(inputFile1,"%d %d %d %d %d",&outputValues1,&outputValues2,&outputValues3,&outputValues4,&outputValues5);
+		fprintf(outputFile,"%d %d %d %d %d\n",outputValues1,outputValues2,outputValues3,outputValues4,outputValues5);
 	}
 	fclose(inputFile2);
 
@@ -54,11 +58,12 @@ int main()
 		return 1;
 	}
 	printf("Opened files successfully!\n");
-	fscanf(inputFile3,"%d %d %d",&outputValues1,&outputValues2,&outputValues3);
 	for (k = 0; k < 100;++k)
 	{
 		fscanf(inputFile3,"%d %d %d",&outputValues1,&outputValues2,&outputValues3);
 		fprintf(outputFile,"%d %d %d\n",outputValues1,outputValues2, outputValues3);
+		fscanf(inputFile1,"%d %d %d %d %d",&outputValues1,&outputValues2,&outputValues3,&outputValues4,&outputValues5);
+		fprintf(outputFile,"%d %d %d %d %d\n",outputValues1,outputValues2,outputValues3,outputValues4,outputValues5);
 	}
 	fclose(inputFile3);
 
@@ -70,11 +75,12 @@ int main()
 		return 1;
 	}
 	printf("Opened files successfully!\n");
-	fscanf(inputFile4,"%d %d %d",&outputValues1,&outputValues2,&outputValues3);
 	for (k = 0; k < 100;++k)
 	{
 		fscanf(inputFile3,"%d %d %d",&outputValues1,&outputValues2,&outputValues3);
 		fprintf(outputFile,"%d %d %d\n",outputValues1,outputValues2, outputValues3);
+		fscanf(inputFile1,"%d %d %d %d %d",&outputValues1,&outputValues2,&outputValues3,&outputValues4,&outputValues5);
+		fprintf(outputFile,"%d %d %d %d %d\n",outputValues1,outputValues2,outputValues3,outputValues4,outputValues5);
 	}
 	fclose(inputFile4);
 	
@@ -86,11 +92,12 @@ int main()
 		return 1;
 	}
 	printf("Opened files successfully!\n");
-	fscanf(inputFile5,"%d %d %d",&outputValues1,&outputValues2,&outputValues3);
 	for (k = 0; k < 100;++k)
 	{
 		fscanf(inputFile5,"%d %d %d",&outputValues1,&outputValues2,&outputValues3);
 		fprintf(outputFile,"%d %d %d\n",outputValues1,outputValues2, outputValues3);
+		fscanf(inputFile1,"%d %d %d %d %d",&outputValues1,&outputValues2,&outputValues3,&outputValues4,&outputValues5);
+		fprintf(outputFile,"%d %d %d %d %d\n",outputValues1,outputValues2,outputValues3,outputValues4,outputValues5);
 	}
 	fclose(inputFile5);
 

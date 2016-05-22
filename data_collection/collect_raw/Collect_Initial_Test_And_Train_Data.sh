@@ -23,7 +23,7 @@ for i in $(seq $1 $2);
 		cp motion_data_output_2.csv ../raw/mdo_${i}e.csv
 		cp sensor_data_stream_1.dat ../raw/sds_${i}w.dat
 		cp sensor_data_stream_2.dat ../raw/sds_${i}e.dat
-		./writeTrainData ../../training_data/train.dat
+		./writeTrainData ../../training_data/train.dat ${i}
 		rm motion_data_output_1.csv
 		rm motion_data_output_2.csv
 		rm sensor_data_stream_1.dat
