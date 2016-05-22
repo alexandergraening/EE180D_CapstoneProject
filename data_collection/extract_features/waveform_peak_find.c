@@ -295,7 +295,7 @@ int main(int argc, char **argv)
 					x[idx]
 			       );
 		} else {
-			fprintf(fp, ",,,");
+			fprintf(fp, ",,,\n");
 		}
 
 		/* Only trough data if there is trough data to write */
@@ -360,7 +360,7 @@ int main(int argc, char **argv)
 				y[idx]
 		       );
 		} else {
-		fprintf(fp, ",,,");
+		fprintf(fp, ",,,\n");
 	}
 
 	/* Only trough data if there is trough data to write */
@@ -421,10 +421,10 @@ int main(int argc, char **argv)
 		idx = (int) P_i_z[i];
 		fprintf(fp, "%lf,  %lf\n",
 				t[idx],
-				y[idx]
+				z[idx]
 		       );
 		} else {
-		fprintf(fp, ",,,");
+		fprintf(fp, ",,,\n");
 	}
 
 	/* Only trough data if there is trough data to write */
