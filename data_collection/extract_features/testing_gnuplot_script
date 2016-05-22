@@ -1,5 +1,6 @@
 set term png enhanced size 1280,1024 font "Arial,20"
 set output 'test.png'
+set datafile separator ','
 set key autotitle columnhead
 set pointsize 4 
 set xlabel "X-Value" 
