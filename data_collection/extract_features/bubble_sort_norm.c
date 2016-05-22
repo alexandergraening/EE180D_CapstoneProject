@@ -245,7 +245,8 @@ int main(int argc, char **argv)
         }
 */
         /* open the output file to write the x axis data */
-        printf("Sorted and normalized data file \'%s\'.\n", ofile_name);
+        
+	printf("Sorted and normalized data file \'%s\'.\n", ofile_name);
         fp = fopen(ofile_name, "w");
         if (fp == NULL) {
                 fprintf(stderr, 
@@ -264,6 +265,7 @@ int main(int argc, char **argv)
                                 amplitude_vector[i]
                        );
         }
+
 	fclose(fp);
 	
 	// Open the output file to write the y axis data
@@ -275,9 +277,7 @@ int main(int argc, char **argv)
                                 amplitude_vector2[i]
                        );
         }
-
         fclose(fp);
-
 
     	return 0;
 }
