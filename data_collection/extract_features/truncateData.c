@@ -8,7 +8,7 @@
 // Output: Truncated CSV File
 
 
-// USAGE: ./truncateData <INPUT Motion Data> <Peaks File>  <OUTPUT Trunced Data>
+// USAGE: ./truncateData <INPUT Motion Data> <Peaks File>  <OUTPUT Truncated Motion Data>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,7 +30,7 @@ void max_vector(float vector[], float* max, int n,
 		if ( *max < vector[i] && timeVector[i] < timeThreshold){
 	
 			*max = vector[i];
-			*cutoffTime = timeVector[i]+ 15;
+			*cutoffTime = timeVector[i]+ 1.5;
 		}
 	}
 }
@@ -87,7 +87,7 @@ int main(int argc, char* argv[])
 		i++;
 	}
 	max_vector(ampVec, &maxPeak, lineCount, timeVec, 3, &cutOff); 
-//printf("cutoff time is : %f\n", cutOff);	
+		printf("cutoff time is : %f\n", cutOff);	
 	fclose(iFile);
 	free (timeVec);
 	free (ampVec);
@@ -98,6 +98,10 @@ int main(int argc, char* argv[])
 
 	if(iFile == NULL) {
 		fprintf(stderr, "truncData: failed to read from input motion file\n");
+		exit(EXIT_FAILURE);
+	}
+	if (iFile == NULL) {
+		fprintf(stderr, "truncData: failed to open output file\n");
 		exit(EXIT_FAILURE);
 	}
 	lineCount = 0;

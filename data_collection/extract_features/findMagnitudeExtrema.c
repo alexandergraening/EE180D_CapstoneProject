@@ -63,13 +63,12 @@ int main(int argc, char **argv)
 	float * time_vector;
 	float * amplitude_vector;
 
-	              if (argc != 3) {
+	if (argc != 3) {
                        fprintf(stderr, 
                               "Error - check usage\n"
                               );
                         exit(EXIT_FAILURE);
-                }
-
+        }
 
 	ifile_name = argv[1];
         ofile_name = argv[2];
@@ -77,7 +76,7 @@ int main(int argc, char **argv)
         /* open the input file */
         iFile = fopen(ifile_name, "r");
         if (iFile == NULL) {
-                fprintf(stderr, 
+		fprintf(stderr, 
                                 "Failed to read from file \'%s\'.\n", 
                                 ifile_name
                        );
@@ -113,6 +112,10 @@ int main(int argc, char **argv)
 	vector_length = N_SAMPLES;
 
 	oFile = fopen(ofile_name, "w");
+	if (iFile == NULL) {
+		fprintf(stderr, "Failed to open output file\n");
+		exit(EXIT_FAILURE);
+	}
 
 	min_vector(amplitude_vector, time_vector, &vec_min,&minTime, vector_length);
 	max_vector(amplitude_vector, time_vector, &vec_max,&maxTime, vector_length);

@@ -214,11 +214,12 @@ int main(int argc, char **argv)
 		rv = sscanf(line, "%f,%f,%f,%f\n", &t[i], &x[i], &y[i], &z[i]);
 		if (rv != 4) {
 			fprintf(stderr,
-					"%s %d \'%s\'. %s.\n",
+					"%s %d \'%s\'. %s.\t\"%s\"\n",
 					"Failed to read line",
 					i,
 					line,
-					"Exiting"
+					"Exiting",
+					ifile_name
 			       );
 			exit(EXIT_FAILURE);
 		}

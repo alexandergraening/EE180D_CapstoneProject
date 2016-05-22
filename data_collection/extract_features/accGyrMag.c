@@ -21,12 +21,6 @@ int main(int argc, char* argv[])
 	// the following is a dummy variable used only to skip lines when reading files
 	char full_line_storage[999];	
 	
-	outFileAcc = fopen(argv[2], "w");
-	fprintf(outFileAcc, "Timestamp    Acc Mags\n");
-
-	outFileGyr = fopen(argv[3], "w");
-	fprintf(outFileGyr, "Timestamp    Gyr Mags\n");
-	
 	inFile = fopen(argv[1],"r");
 	if(!inFile)
 	{
@@ -34,6 +28,15 @@ int main(int argc, char* argv[])
 		printf("ABORTING\n");
 		return 1;
 	}
+	outFileAcc = fopen(argv[2], "w");
+	outFileGyr = fopen(argv[3], "w");
+	if(outFileAcc == NULL || outFileGyr == NULL)
+	{
+		printf("Failure to open output files! Exiting\n");
+		return 1;
+	}
+	fprintf(outFileAcc, "Timestamp    Acc Mags\n");
+	fprintf(outFileGyr, "Timestamp    Gyr Mags\n");
 
 	// skip the first header line when reading the csv
 	while(fgets(full_line_storage, 999, inFile)!=NULL)
