@@ -10,7 +10,7 @@
  *      maximum and minimum values
  *
  *	Usage:
- *	./bubble_sort_norm <INPUT_FILE> <OUTPUT_FILE>
+ *	./bubble_sort_norm <INPUT_FILE1> <INPUT_FILE2> <OUTPUT_FILE1> <Outputfile2>
  *
  */
 
