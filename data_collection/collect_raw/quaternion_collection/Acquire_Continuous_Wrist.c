@@ -107,11 +107,17 @@ int hex_to_decimal_time(char seq[4]){
 }
 
 int stream_parser(char raw[BUFF_MAX]){
-	int i = 0; 
-	while(i < BUFF_MAX && raw[i] != ':'){ ++i; }
+	int i = 0;
+	while(i < BUFF_MAX && raw[i] != '='){ i++; }
+	i += 7;
+	if (raw[i] == '1')
+	{
+		return 2;		
+	}
+	while(i < BUFF_MAX && raw[i] != ':'){ i++; }
 	i += 2;
 	char *ptr = &raw[i];
-	
+
 	int iter = 0;
 	char data[40]; 
 	int lock = 0;
@@ -121,7 +127,7 @@ int stream_parser(char raw[BUFF_MAX]){
 			++lock;
 			++iter;
 		}
-        ptr++;
+       	ptr++;
     }
 
     FILE * out_qi = fopen(SIGNAL_QI,"a");
@@ -194,8 +200,9 @@ unsigned int BLE_parse(const char *inFile){
 
 	unsigned int iter = 0;
 	while(fgets(raw, BUFF_MAX, ble_file)){
-		if(stream_parser(raw) == 0) return 0;
-		iter++;
+		int result = stream_parser(raw);
+		if(result == 0) return 0;
+		if(result == 1)	iter++;
 	}
 	//
 	// Decrement iter to ensure that last line of file is eliminated
@@ -308,7 +315,7 @@ void sig_handler_data_acq_1(int handler_val)
 			clock_gettime(CLOCK_REALTIME, &handler_exec_time);
 			printf("Current POSIX time at start of data acquisition 1 seconds %i\n",handler_exec_time.tv_sec);
 			printf("Current POSIX time at start of data acquisition 1 nanoseconds %i\n",handler_exec_time.tv_nsec);
-			system("sh quaternion_data_wrist.sh");
+			system("sh motion_data_blend_sensortile_1.sh");
 }
 
 int main(int argc, char *argv[]) {	
@@ -374,7 +381,7 @@ int main(int argc, char *argv[]) {
 
 	size = 3*BLE_parse(input_file);
 	if(size == 0){
-			printf("ERROR (stream_parser): BLE Data formatted incorrectly.\n");
+			printf("ERROR (stream_parser): BLE Data formatted incorrectly.(Wrist)\n");
 		    	return 0;
     	}
 
