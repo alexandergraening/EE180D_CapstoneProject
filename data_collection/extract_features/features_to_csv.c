@@ -10,7 +10,7 @@
  *      maximum and minimum values
  *
  *	Usage:
- *	./features_to_csv <accMaxMin_w> <accMaxMin_e> <gyrMaxMin_w> <gyrMaxMin_e> <accTimeFeature_w> <accTimeFeature_e> <gyrTimeFeature_w> <gyrTimeFeature_e> <OUTPUT_FILE>
+ *	./features_to_csv <accMaxMin_w> <accMaxMin_e> <gyrMaxMin_w> <gyrMaxMin_e> <accTimeFeature_w> <accTimeFeature_e> <gyrTimeFeature_w> <gyrTimeFeature_e> <riemann_w> <riemann_e> <OUTPUT_FILE>
  *
  */
 
@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 	float * time_vector2;
 	float * amplitude_vector2;
 
-	if (argc != 10) {
+	if (argc != 12) {
 		printf("Error - check usage (<input_file> <start_sample> <end_sample>)\n");
 		exit(EXIT_FAILURE);
 	}
@@ -96,7 +96,7 @@ int main(int argc, char **argv)
 	//	../features/gyrTimeFeature_1w.csv
 	//	../features/gyrTimeFeature_1e.csv
 
-	ofile_name = argv[9];
+	ofile_name = argv[11];
 	ofp = fopen(ofile_name, "a");
 	if (ofp == NULL)
 	{
@@ -247,7 +247,7 @@ int main(int argc, char **argv)
 		//Write to output file here
 */
 		//fprintf(ofp,"%d,w,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n\r",k,xAy,yAz,zAx,xGy,yGz,zGx,dMmxA,dMmyA,dMmzA,dMmxG,dMmyG,dMmzG);
-		fprintf(ofp,"w,%f,%f\n",aMag,gMag);
+		fprintf(ofp,"%f,%f,",aMag,gMag);
 
 		//
 		//Then do stuff for Elbow data
@@ -334,7 +334,7 @@ int main(int argc, char **argv)
         	read = getline(&line, &len, ifp); //Discard Header.                
         	read = getline(&line, &len, ifp); //Load file data into line.
 		
-		rv = sscanf(line, "%f,%f,%f\n",&xGy,&yGz,&zGx);
+		rv = sscanf(line, "%f,%f,%f",&xGy,&yGz,&zGx);
 		if (rv != 3)
 		{
 			printf("Failure to extract ratio data from axis file, printing dummy values!\n");
@@ -342,8 +342,54 @@ int main(int argc, char **argv)
 		}
 		}
 		fclose(ifp);
+		
+		fprintf(ofp,"%f,%f,",aMag,gMag);
 
+		ifile_name = argv[9];
+		ifp = fopen(ifile_name,"r");
+		double magnitude[6];
+		if (ifp == NULL)
+		{
+			printf("Failed to open %s\'\n",ifile_name);	
+			magnitude[0] = 0;
+			magnitude[1] = 0;
+			magnitude[2] = 0;
+			magnitude[3] = 0;
+			magnitude[4] = 0;
+			magnitude[5] = 0;
+		}
+		else
+		{
+        		read = getline(&line, &len, ifp); //Load file data into line.
+			rv = sscanf(line, "%f,%f,%f,%f,%f,%f",&magnitude[0],&magnitude[1],&magnitude[2],&magnitude[3],&magnitude[4],&magnitude[5]);
+		}
 
+		fprintf(ofp,"%f,%f,%f,%f,%f,%f,",magnitude[0],magnitude[1],magnitude[2],magnitude[3],magnitude[4],magnitude[5]);
+
+		fclose(ifp);
+
+		ifile_name = argv[10];
+		ifp = fopen(ifile_name,"r");
+
+		if (ifp == NULL)
+		{
+			printf("Failed to open %s\'\n",ifile_name);	
+			magnitude[0] = 0;
+			magnitude[1] = 0;
+			magnitude[2] = 0;
+			magnitude[3] = 0;
+			magnitude[4] = 0;
+			magnitude[5] = 0;
+		}
+		else
+		{
+        		read = getline(&line, &len, ifp); //Load file data into line.
+			rv = sscanf(line, "%f,%f,%f,%f,%f,%f",&magnitude[0],&magnitude[1],&magnitude[2],&magnitude[3],&magnitude[4],&magnitude[5]);
+		}
+
+		fprintf(ofp,"%f,%f,%f,%f,%f,%f\n",magnitude[0],magnitude[1],magnitude[2],magnitude[3],magnitude[4],magnitude[5]);
+
+		fclose(ifp);
 		//dMmxA = 0;dMmyA = 0;dMmzA = 0;dMmxG = 0;dMmyG = 0;dMmzG = 0;
 	/*	ifile_name = "";
 		strcat(ifile_name,file_strt_accTf);
@@ -384,14 +430,6 @@ int main(int argc, char **argv)
 		//Print to output file here:
 */
 		//fprintf(ofp,"%d,e,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f\n\r",k,xAy,yAz,zAx,xGy,yGz,zGx,dMmxA,dMmyA,dMmzA,dMmxG,dMmyG,dMmzG);
-		fprintf(ofp,"e,%f,%f\n",aMag,gMag);
-
-
-
-
-
-
-
 
 
 	}

@@ -1,4 +1,4 @@
-all: waveform_peak_find accGyrMag bubble_sort_norm waveform_feature_xcorr magnitudeXCORR findAbsExtrema findMagnitudeExtrema truncateData
+all: waveform_peak_find accGyrMag bubble_sort_norm waveform_feature_xcorr magnitudeXCORR findAbsExtrema findMagnitudeExtrema truncateData computeRiemannSum features_to_csv
 
 waveform_peak_find: waveform_peak_find.c
 	gcc -o waveform_peak_find waveform_peak_find.c -lm
@@ -24,7 +24,14 @@ findMagniudeExtrema: findMagnitudeExtrema.c
 truncateData: truncateData.c
 	gcc -o truncateData truncateData.c
 
+computeRiemannSum: computeRiemannSum.c
+	gcc -o computeRiemannSum computeRiemannSum.c
+
+features_to_csv: features_to_csv.c
+	gcc -o features_to_csv features_to_csv.c -lm
+
 clean:
+	find . -type f | xargs touch
 	rm -rf waveform_peak_find *~
 	rm -rf accGyrMag
 	rm -rf bubble_sort_norm
@@ -32,3 +39,4 @@ clean:
 	rm -rf magnitudeXCORR
 	rm -rf findAbsExtrema
 	rm -rf findMagnitudeExtrema
+	rm -rf computeRiemannSum
